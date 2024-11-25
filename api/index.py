@@ -136,6 +136,30 @@ def get_screen_size():
     return 1200, 800
 
 
+# Define the color map to distinguish between hot and cold values
+color_map = {
+    "hot": [15,20],   # Example: Values between 7-10 are "hot"
+    "warm": [5, 14],   # Example: Values between 4-6 are "warm"
+    "cold": [0, 4]    # Example: Values between 0-3 are "cold"
+}
+
+def determine_color(value):
+    """Function to determine color based on the value using the predefined color_map."""
+    if color_map["cold"][0] <= value <= color_map["cold"][1]:
+        return "blue"  # Cold values will be blue
+    elif color_map["warm"][0] <= value <= color_map["warm"][1]:
+        return "yellow"  # Warm values will be yellow
+    elif color_map["hot"][0] <= value <= color_map["hot"][1]:
+        return "red"  # Hot values will be red
+    return "grey"  # Default color for values that don't fit any category
+
+def update_z_values_with_colors(z_values):
+    """Convert z-values to colors based on the color map"""
+    z_colors = []
+    for row in z_values:
+        z_colors.append([determine_color(value) for value in row])
+    return z_colors
+
 @dashApp.callback(
     Output('heatmap', 'figure'),
     Input('column-checklist', 'value')
@@ -149,13 +173,23 @@ def update_heatmap(selected_columns):
     # Convert dict to 2D list for heatmap input
     z_values = list(zip(*df_filtered.values()))
 
+    z_colors = update_z_values_with_colors(z_values)
+
+
     width, height = get_screen_size()
     fig = go.Figure(
     data=go.Heatmap(
-        z=list(zip(*df_filtered.values())),  # Convert dict values to 2D list
+        z=z_values,  # Convert dict values to 2D list
         x=list(df_filtered.keys()),         # Column names as x-axis
         y=y_axis_categories,                # Y-axis labels
-        colorscale='RdYlGn',
+       colorscale=[
+        [0.0, 'black'],      # Very low values (base of fire, darkest)
+        [0.2, 'darkred'],    # Low values (deep red)
+        [0.4, 'red'],        # Mid-low values (red)
+        [0.6, 'orange'],     # Medium values (orange)
+        [0.8, 'yellow'],     # Mid-high values (yellow)
+        [1.0, 'white']       # High values (white-hot)
+],
         colorbar=dict(thickness=10)  
     )
 )
@@ -236,7 +270,8 @@ def manage_selected_cell_and_modal(clickData, close_button_clicks):
         value = clicked_point['z']
 
         figure_data = figure_map.get(x, {}).get(y)
-
+        if figure_data is None:
+            return None, {'display': 'none'}, None, {'display': 'none'}
         figure = figure_data['figure']
         metadata = figure_data['metadata']
 
@@ -298,6 +333,7 @@ def manage_selected_cell_and_modal(clickData, close_button_clicks):
                     'displayModeBar': False  # Disable the top-right menu
                 },
                     style={'height': '100%', "marginTop": "-5%"}),
+                html.P(metadata["notes"])
             ]
         )
 
