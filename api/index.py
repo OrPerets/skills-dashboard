@@ -30,11 +30,10 @@ def load_data(file_path):
 
 app = Flask(__name__, static_folder='public')
 dashApp = Dash(__name__, server=app)
-
 dashApp.layout = html.Div(style={
     'display': 'flex',
     'flexDirection': 'row',
-    'height': '100vh',  # Full viewport height
+    'height': '120vh',  # Full viewport height
     'backgroundColor': '#ecf0f1',  # Grey background
     'direction': 'rtl',
     'margin': 0,
@@ -43,16 +42,22 @@ dashApp.layout = html.Div(style={
 }, children=[
     # Sidebar
     html.Div(style={
-        'width': '300px',  # Fixed width for sidebar
-        'backgroundColor': '#2c3e50',
+        'position': 'fixed',  # Fixed position to float
+        'top': '50%',
+        'left': 0,
+        'transform': 'translateY(-50%)',
+        'width': '250px',  # Fixed width for sidebar
+        'backgroundColor': '#34495e',
         'padding': '20px',
         'color': '#ecf0f1',
         'display': 'flex',
         'flexDirection': 'column',
         'alignItems': 'flex-start',
-        'boxShadow': '-2px 0 10px rgba(0, 0, 0, 0.1)',
-        'borderRadius': '10px',
-        'height': '100%',  # Full height
+        'boxShadow': '2px 0 10px rgba(0, 0, 0, 0.2)',
+        'borderRadius': '0 10px 10px 0',
+        'zIndex': 1000,  # Make sure it is above other elements
+        'transition': 'transform 0.3s ease-in-out',
+        'boxSizing': 'border-box'
     }, children=[
         html.H2("תפריט", style={
             'color': '#ecf0f1',
@@ -86,7 +91,7 @@ dashApp.layout = html.Div(style={
             'borderRadius': '5px',
             'cursor': 'pointer',
             'marginTop': '10px',
-            'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.2)',
+            'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.3)',
             'direction': 'rtl'
         })
     ]),
@@ -101,18 +106,52 @@ dashApp.layout = html.Div(style={
         'backgroundColor': '#ecf0f1',
         'padding': '20px',
         'boxSizing': 'border-box',
+        'marginLeft': '250px'  # To prevent overlap with floating sidebar
     }, children=[
+        html.Div(style={
+            'position': 'fixed',
+            'top': '10px',
+            'right': '10px',
+            'zIndex': 1001,  # Above the main content
+            'display': 'flex',
+            'flexDirection': 'row',
+            'gap': '10px'
+        }, children=[
+            html.Button("הגדל", id='increase-size-button', n_clicks=0, style={
+                'fontSize': '16px',
+                'backgroundColor': '#2980b9',
+                'color': '#ffffff',
+                'border': 'none',
+                'padding': '10px 20px',
+                'borderRadius': '5px',
+                'cursor': 'pointer',
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.3)',
+                'direction': 'rtl'
+            }),
+            html.Button("הקטן", id='decrease-size-button', n_clicks=0, style={
+                'fontSize': '16px',
+                'backgroundColor': '#c0392b',
+                'color': '#ffffff',
+                'border': 'none',
+                'padding': '10px 20px',
+                'borderRadius': '5px',
+                'cursor': 'pointer',
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.3)',
+                'direction': 'rtl'
+            })
+        ]),
         html.H1("מפת חום - תחומי החיים", style={
             'textAlign': 'center',
             'color': '#2c3e50',
             'fontSize': '32px',
             'marginBottom': '20px',
             'fontFamily': 'Arial, sans-serif',
-            'direction': 'rtl'
+            'direction': 'rtl',
+            'marginTop': "-10%"
         }),
-        dcc.Graph(id='heatmap', config={'clickmode': 'event+select'}, style={
-            'width': '100%',
-            'height': '100%',
+        dcc.Graph(id='heatmap', config={'clickmode': 'event+select', 'displayModeBar': False}, style={
+            # 'width': '100%',
+            # 'height': '100%',
             'boxShadow': '0 4px 10px rgba(0, 0, 0, 0.1)',
         }),
     ]),
@@ -129,11 +168,13 @@ dashApp.layout = html.Div(style={
     }),
     html.Div(id='modal', style={'display': 'none', 'direction': 'rtl'}),
 
-    dcc.Store(id='selected-cell-data')
+    dcc.Store(id='selected-cell-data'),
+    dcc.Store(id='heatmap-size', data={'width': 1200, 'height': 750})  # Store for heatmap size
 ])
 
+
 def get_screen_size():
-    return 1200, 800
+    return 1200, 850
 
 
 # Define the color map to distinguish between hot and cold values
@@ -160,11 +201,29 @@ def update_z_values_with_colors(z_values):
         z_colors.append([determine_color(value) for value in row])
     return z_colors
 
+
+def update_y_axis_categories(y_axis_categories):
+    """
+    Function to update y-axis categories such that if the value contains specific terms,
+    only those terms will be bolded in the label.
+    """
+    terms_to_bold = ['AI', 'תחומי חיים כללי', 'פתרון בעיות', 'עסקאות', 'תקשור', 'ניהול מידע']
+    updated_categories = []
+    for category in y_axis_categories:
+        updated_category = category
+        for term in terms_to_bold:
+            if term in category:
+                updated_category = updated_category.replace(term, f"<span><b>{term}</b></span>")
+        updated_categories.append(updated_category)
+    return updated_categories
+
+
 @dashApp.callback(
     Output('heatmap', 'figure'),
-    Input('column-checklist', 'value')
+    [Input('column-checklist', 'value'),
+     Input('heatmap-size', 'data')]
 )
-def update_heatmap(selected_columns):
+def update_heatmap(selected_columns, heatmap_size):
     df, y_axis_categories, _ = load_data('example.json')  # Load JSON instead of Excel
 
     # Filter columns based on selection
@@ -175,47 +234,54 @@ def update_heatmap(selected_columns):
 
     z_colors = update_z_values_with_colors(z_values)
 
-    width, height = get_screen_size()
+    width, height = heatmap_size['width'], heatmap_size['height']
     fig = go.Figure(
     data=go.Heatmap(
         z=z_values,  # Convert dict values to 2D list
-        x=list(df_filtered.keys()),         # Column names as x-axis
-        y=y_axis_categories,                # Y-axis labels
-colorscale=[
-    [0.0, '#FFECB3'],  # Soft Yellow
-    [0.2, '#FFD180'],  # Soft Peach
-    [0.4, '#FFAB91'],  # Soft Coral
-    [0.6, '#FF8A65'],  # Soft Orange
-    [0.8, '#F4511E'],  # Softer Red
-    [1.0, '#D84315']   # Soft Burnt Red
-],
-        colorbar=dict(thickness=10)  
+        x=list(df_filtered.keys()),
+        y=update_y_axis_categories(y_axis_categories),  # Apply bold formatting to important categories
+        colorscale=[
+            [0.0, '#66C2A5'],  # Green
+            [0.2, '#FEE08B'],  # Yellow
+            [0.4, '#FDAE61'],  # Orange
+            [0.6, '#F46D43'],  # Light Red
+            [0.8, '#D73027'],  # Red
+            [1.0, '#A50026']   # Dark Red
+        ],
+        colorbar=dict(thickness=10)
+        )
     )
-)
-    # Update layout to minimize margins and fully stretch heatmap
+
+    # Update layout to set a consistent font style
     fig.update_layout(
         title_x=0.5,
         title_font=dict(size=24, family="Arial, sans-serif"),
         xaxis=dict(
             tickangle=0,  # Horizontal labels
-            tickfont=dict(size=16, family="Arial"),
+            tickfont=dict(size=16, family="Arial", color='#2c3e50'),
             title_text="",
             side="top",   # Keep labels at the top
             automargin=True,
-            # scaleanchor="y",  # Link x and y axis scaling
             constrain="domain"  # Ensure full domain is used for scaling
         ),
         yaxis=dict(
             tickfont=dict(size=16, family="Arial"),
             automargin=True,
-            # scaleanchor="x",  # Link y and x axis scaling
-            constrain="domain"  # Ensure full domain is used for scaling
         ),
         plot_bgcolor="rgba(0,0,0,0)",           # Transparent background
         paper_bgcolor="rgba(255,255,255,1)",   # White figure background
-        height=int(height * 0.8),                            # Adjust for the screen size
-        width=int(width * 0.85),                            # Adjust for the screen size
-        margin=dict(l=10, r=10, t=10, b=10),   # Minimal margins to reduce empty spaces
+        height=int(1.05*height),                    # Adjust for the screen size
+        width=int(width),                      # Adjust for the screen size
+        margin=dict(l=150),   # Minimal margins to reduce empty spaces
+    )
+    fig.update_xaxes(
+        scaleanchor="y",  # This keeps the aspect ratio between x and y consistent
+        scaleratio=3
+    )
+
+    fig.update_yaxes(
+        scaleanchor="x",
+        scaleratio=1.5
     )
     return fig
 
@@ -362,7 +428,25 @@ def manage_selected_cell_and_modal(clickData, close_button_clicks):
             'value': value
         }, {'display': 'block'}, modal_content, {'display': 'block'}  # Show overlay
 
+@dashApp.callback(
+    Output('heatmap-size', 'data'),
+    [Input('increase-size-button', 'n_clicks'),
+     Input('decrease-size-button', 'n_clicks')],
+    State('heatmap-size', 'data')
+)
+def update_heatmap_size(increase_clicks, decrease_clicks, current_size):
+    # Adjust heatmap size by 10% based on button clicks
+    new_width = current_size['width']
+    new_height = current_size['height']
 
+    if dash.callback_context.triggered_id == 'increase-size-button' and increase_clicks > 0:
+        new_width *= 1.1
+        new_height *= 1.1
+    elif dash.callback_context.triggered_id == 'decrease-size-button' and decrease_clicks > 0:
+        new_width *= 0.9
+        new_height *= 0.9
+
+    return {'width': int(new_width), 'height': int(new_height)}
 
 if __name__ == '__main__':
     app.run(debug=True, port=8051)
