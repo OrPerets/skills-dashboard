@@ -139,8 +139,8 @@ def get_screen_size():
 # Define the color map to distinguish between hot and cold values
 color_map = {
     "hot": [15,20],   # Example: Values between 7-10 are "hot"
-    "warm": [5, 14],   # Example: Values between 4-6 are "warm"
-    "cold": [0, 4]    # Example: Values between 0-3 are "cold"
+    "warm": [6, 14],   # Example: Values between 4-6 are "warm"
+    "cold": [0, 5]    # Example: Values between 0-3 are "cold"
 }
 
 def determine_color(value):
@@ -175,20 +175,19 @@ def update_heatmap(selected_columns):
 
     z_colors = update_z_values_with_colors(z_values)
 
-
     width, height = get_screen_size()
     fig = go.Figure(
     data=go.Heatmap(
         z=z_values,  # Convert dict values to 2D list
         x=list(df_filtered.keys()),         # Column names as x-axis
         y=y_axis_categories,                # Y-axis labels
-       colorscale=[
-        [0.0, 'black'],      # Very low values (base of fire, darkest)
-        [0.2, 'darkred'],    # Low values (deep red)
-        [0.4, 'red'],        # Mid-low values (red)
-        [0.6, 'orange'],     # Medium values (orange)
-        [0.8, 'yellow'],     # Mid-high values (yellow)
-        [1.0, 'white']       # High values (white-hot)
+colorscale=[
+    [0.0, '#FFECB3'],  # Soft Yellow
+    [0.2, '#FFD180'],  # Soft Peach
+    [0.4, '#FFAB91'],  # Soft Coral
+    [0.6, '#FF8A65'],  # Soft Orange
+    [0.8, '#F4511E'],  # Softer Red
+    [1.0, '#D84315']   # Soft Burnt Red
 ],
         colorbar=dict(thickness=10)  
     )
@@ -333,7 +332,27 @@ def manage_selected_cell_and_modal(clickData, close_button_clicks):
                     'displayModeBar': False  # Disable the top-right menu
                 },
                     style={'height': '100%', "marginTop": "-5%"}),
-                html.P(metadata["notes"])
+                html.P(metadata["notes"], style={
+                    'fontSize': '16px',
+                    'color': '#34495e',
+                    'marginTop': '20px',
+                    'textAlign': 'justify',
+                }),
+                # Link at the Bottom Right
+                html.A(
+                    "למידע נוסף לחץ כאן",
+                    href=metadata["link"],
+                    target="_blank",
+                    style={
+                        'position': 'absolute',
+                        'bottom': '20px',
+                        'right': '20px',
+                        'color': '#1abc9c',
+                        'fontSize': '16px',
+                        'textDecoration': 'none',
+                        'fontWeight': 'bold',
+                    }
+                )
             ]
         )
 
@@ -343,7 +362,7 @@ def manage_selected_cell_and_modal(clickData, close_button_clicks):
             'value': value
         }, {'display': 'block'}, modal_content, {'display': 'block'}  # Show overlay
 
-    return dash.no_update, {'display': 'none'}, None, {'display': 'none'}
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8051)

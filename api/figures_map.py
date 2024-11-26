@@ -65,10 +65,10 @@ for row in rows:
             item = filtered_data[0]  # Use the first matching item
             metadata = {
                 'measurement_method': item.get('אופן חישוב המדד', "N/A"),
-                'survey_item': item.get('סעיף / היגד על', "No item available"),
-                'source': item.get('מקור', "Unknown source"),
-                'link': item.get('קישור', "No link available"),
-                'notes': item.get('הערות', "No additional notes")
+                'survey_item': item.get('סעיף / היגד על', ""),
+                'source': item.get('מקור', "U"),
+                'link': item.get('קישור', ""),
+                'notes': item.get('הערות', "")
             }
 
             # Generating a figure (mocked for now, but can be adjusted to use actual data)
