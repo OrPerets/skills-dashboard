@@ -6,9 +6,9 @@ import plotly.graph_objects as go
 from flask import Flask, send_from_directory
 import json
 import os
-from figures_map import *
+from .figures_map import *
 import re
-from .screeninfo import get_monitors
+# import subprocess
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
@@ -197,9 +197,7 @@ dashApp.layout = html.Div(style={
 
 
 def get_screen_size():
-    m = get_monitors()
-    return m[0].width, m[0].height
-
+    return 1100, 700
 
 # Define the color map to distinguish between hot and cold values
 color_map = {
