@@ -6,8 +6,9 @@ import plotly.graph_objects as go
 from flask import Flask, send_from_directory
 import json
 import os
-from .figures_map import *
+from figures_map import *
 import re
+from .screeninfo import get_monitors
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
@@ -96,7 +97,6 @@ dashApp.layout = html.Div(style={
             'direction': 'rtl'
         })
     ]),
-
     # Main Content
     html.Div(style={
         'flex': 1,  # Take remaining space
@@ -156,6 +156,28 @@ dashApp.layout = html.Div(style={
             'boxShadow': '0 4px 10px rgba(0, 0, 0, 0.1)',
         }),
     ]),
+    dcc.Store(id='screen-size-store'),
+    html.Script('''
+    (function() {
+        function sendScreenSize() {
+            const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+            if (window.dash_clientside && window.dash_clientside.eventData) {
+                window.dash_clientside.eventData.width = width;
+                window.dash_clientside.eventData.height = height;
+            } else {
+                window.dash_clientside = {eventData: {width: width, height: height}};
+            }
+        }
+
+        // Send initial screen size on page load
+        sendScreenSize();
+
+        // Send screen size when resizing
+        window.addEventListener("resize", sendScreenSize);
+    })();
+    '''),
     # Modal
     html.Div(id='overlay', style={
     'display': 'none',  # Hidden by default
@@ -170,12 +192,13 @@ dashApp.layout = html.Div(style={
     html.Div(id='modal', style={'display': 'none', 'direction': 'rtl'}),
 
     dcc.Store(id='selected-cell-data'),
-    dcc.Store(id='heatmap-size', data={'width': 1200, 'height': 750})  # Store for heatmap size
+    dcc.Store(id='heatmap-size', data={'width': 1100, 'height': 750}),  # Store for heatmap size,
 ])
 
 
 def get_screen_size():
-    return 1000, 600
+    m = get_monitors()
+    return m[0].width, m[0].height
 
 
 # Define the color map to distinguish between hot and cold values
@@ -217,13 +240,66 @@ def update_y_axis_categories(y_axis_categories):
         updated_categories.append(updated_category)
     return updated_categories
 
+def update_y_axis_categories_with_extra_column(y_labels):
+    """
+    Update y-axis labels to include an additional column with correct bolding.
+    Extract parent category and subcategory from y_labels directly.
+    """
+    updated_labels = []
+    for label in y_labels:
+        # Split the label into parent and subcategory
+        if " " in label:
+            parent_category, subcategory = label.rsplit(" ", 1)  # Split by the last space
+            updated_label = f"<span style='display: flex; justify-content: space-between'><span style='text-align: right;'><b>{parent_category}</b></span> \t | \t <span style='text-align: left;'>{subcategory}</span></span>"
+        else:
+            # If there's no space, use the label as-is
+            updated_label = label
+        updated_labels.append(updated_label)
+
+    return updated_labels
+
+def update_y_axis_categories_grouped(y_labels):
+    """
+    Update y-axis labels to display the bolded category only once per group.
+    Subsequent rows in the group will only display the subcategory.
+    """
+    updated_labels = []
+    current_category = None
+
+    for label in y_labels:
+        # Split the label into parent category and subcategory
+        if " " in label:
+            parent_category, subcategory = label.rsplit(" ", 1)  # Split by the last space
+            
+            # Add the parent category only if it has changed
+            if parent_category != current_category:
+                updated_labels.append(f"<b>{parent_category}</b>")
+                current_category = parent_category
+            else:
+                updated_labels.append("")  # Leave subsequent rows blank for the same category
+
+            # Always add the subcategory
+            updated_labels[-1] += f" | {subcategory}"
+        else:
+            # If there's no space, use the label as-is
+            updated_labels.append(label)
+
+    return updated_labels
+
+def convert_AI_label(y_axis_labels):
+    for i in range(len(y_axis_labels)):
+        if "AI" in y_axis_labels[i]:
+            y_axis_labels[i] = y_axis_labels[i].replace("AI", "<b>בינה מלאכותית</b>")
+
 
 @dashApp.callback(
     Output('heatmap', 'figure'),
     [Input('column-checklist', 'value'),
-     Input('heatmap-size', 'data')]
+     Input('screen-size-store', 'data')]
 )
-def update_heatmap(selected_columns, heatmap_size):
+def update_heatmap(selected_columns, screen_size_data):
+    if screen_size_data is None:
+        screen_size_data = {'width': 1200, 'height': 750}  
     df, y_axis_categories, _ = load_data('example.json')  # Load JSON instead of Excel
 
     # Filter columns based on selection
@@ -234,14 +310,17 @@ def update_heatmap(selected_columns, heatmap_size):
 
     z_colors = update_z_values_with_colors(z_values)
 
-    y_axis_labels = update_y_axis_categories(y_axis_categories)
+    y_axis_labels = update_y_axis_categories_with_extra_column(y_axis_categories)
 
     formatted_labels = [
         dash_dangerously_set_inner_html.DangerouslySetInnerHTML(label)
         for label in y_axis_labels
     ]
-
-    width, height = heatmap_size['width'], heatmap_size['height']
+    convert_AI_label(y_axis_labels)
+    width, height = get_screen_size()
+    #width = screen_size_data.get('width', 1200)
+    #height = screen_size_data.get('height', 750)
+    print(width, height)
     fig = go.Figure(
     data=go.Heatmap(
         z=z_values,  # Convert dict values to 2D list
@@ -255,9 +334,10 @@ def update_heatmap(selected_columns, heatmap_size):
             [0.8, '#D73027'],  # Red
             [1.0, '#A50026']   # Dark Red
         ],
-        colorbar=dict(thickness=10)
+        showscale=False
         )
     )
+    
 
     # Update layout to set a consistent font style
     fig.update_layout(
@@ -267,19 +347,21 @@ def update_heatmap(selected_columns, heatmap_size):
             tickangle=0,  # Horizontal labels
             tickfont=dict(size=16, family="Arial", color='#2c3e50'),
             title_text="",
-            side="top",   # Keep labels at the top
+            side="bottom",   # Keep labels at the top
             automargin=True,
             constrain="domain"  # Ensure full domain is used for scaling
         ),
         yaxis=dict(
             tickfont=dict(size=16, family="Arial"),
             automargin=True,
+            side="left",
+            # ticklabelposition="outside right",
         ),
         plot_bgcolor="rgba(0,0,0,0)",           # Transparent background
         paper_bgcolor="rgba(255,255,255,1)",   # White figure background
-        height=int(height),                    # Adjust for the screen size
-        width=int(width),                      # Adjust for the screen size
-        margin=dict(l=200, r=10, t=50, b=50), # Minimal margins to reduce empty spaces
+        height=int(height*0.7),                    # Adjust for the screen size
+        width=int(width*0.8),                      # Adjust for the screen size
+        margin=dict(l=10, r=50, t=10, b=10), # Minimal margins to reduce empty spaces
     )
     return fig
 
@@ -302,6 +384,18 @@ def update_checklist_options(n_clicks, current_options):
 
 def get_graph_html(fig):
     return fig.to_html(full_html=False)
+
+def clean_html_string(html_string):
+    """
+    Clean an HTML string, extract the text content, and remove extra spaces and separators.
+    """
+    # Remove HTML tags
+    clean_text = re.sub(r'<.*?>', '', html_string).strip()
+    # Replace the "|" separator with a single space
+    clean_text = re.sub(r'\s*\|\s*', ' ', clean_text)
+    # Remove extra spaces
+    clean_text = re.sub(r'\s+', ' ', clean_text)
+    return clean_text
 
 @dashApp.callback(
     [Output('selected-cell-data', 'data'),
@@ -334,10 +428,8 @@ def manage_selected_cell_and_modal(clickData, close_button_clicks):
 
         clean_label = re.sub(r"</?b>", "", y)
 
-        figure_data = figure_map.get(x, {}).get(clean_label)
+        figure_data = figure_map.get(x, {}).get(clean_html_string(y))
 
-        # print("!", figure_map[x].keys())
-        # print("!!", y)
         if figure_data is None:
             return None, {'display': 'none'}, None, {'display': 'none'}
         figure = figure_data['figure']
@@ -383,7 +475,7 @@ def manage_selected_cell_and_modal(clickData, close_button_clicks):
                     }
                 ),
                 # Title
-                html.H1(x + "," + clean_label, style={
+                html.H1(x + "," + clean_html_string(y), style={
                     'fontSize': '28px',
                     'fontWeight': 'bold',
                     'color': '#34495e',
