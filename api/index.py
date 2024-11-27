@@ -7,6 +7,7 @@ from flask import Flask, send_from_directory
 import json
 import os
 from .figures_map import *
+import re
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
@@ -164,7 +165,7 @@ dashApp.layout = html.Div(style={
     'width': '100%',
     'height': '100%',
     'backgroundColor': 'rgba(0, 0, 0, 0.5)',  # Semi-transparent overlay
-    'zIndex': 999
+    'zIndex': 2000
     }),
     html.Div(id='modal', style={'display': 'none', 'direction': 'rtl'}),
 
@@ -174,7 +175,7 @@ dashApp.layout = html.Div(style={
 
 
 def get_screen_size():
-    return 1200, 850
+    return 1000, 600
 
 
 # Define the color map to distinguish between hot and cold values
@@ -201,7 +202,6 @@ def update_z_values_with_colors(z_values):
         z_colors.append([determine_color(value) for value in row])
     return z_colors
 
-
 def update_y_axis_categories(y_axis_categories):
     """
     Function to update y-axis categories such that if the value contains specific terms,
@@ -213,7 +213,7 @@ def update_y_axis_categories(y_axis_categories):
         updated_category = category
         for term in terms_to_bold:
             if term in category:
-                updated_category = updated_category.replace(term, f"<span><b>{term}</b></span>")
+                updated_category = updated_category.replace(term, f'<b>{term}</b>')
         updated_categories.append(updated_category)
     return updated_categories
 
@@ -234,12 +234,19 @@ def update_heatmap(selected_columns, heatmap_size):
 
     z_colors = update_z_values_with_colors(z_values)
 
+    y_axis_labels = update_y_axis_categories(y_axis_categories)
+
+    formatted_labels = [
+        dash_dangerously_set_inner_html.DangerouslySetInnerHTML(label)
+        for label in y_axis_labels
+    ]
+
     width, height = heatmap_size['width'], heatmap_size['height']
     fig = go.Figure(
     data=go.Heatmap(
         z=z_values,  # Convert dict values to 2D list
         x=list(df_filtered.keys()),
-        y=update_y_axis_categories(y_axis_categories),  # Apply bold formatting to important categories
+        y=y_axis_labels,  # Apply bold formatting to important categories
         colorscale=[
             [0.0, '#66C2A5'],  # Green
             [0.2, '#FEE08B'],  # Yellow
@@ -270,18 +277,9 @@ def update_heatmap(selected_columns, heatmap_size):
         ),
         plot_bgcolor="rgba(0,0,0,0)",           # Transparent background
         paper_bgcolor="rgba(255,255,255,1)",   # White figure background
-        height=int(1.05*height),                    # Adjust for the screen size
+        height=int(height),                    # Adjust for the screen size
         width=int(width),                      # Adjust for the screen size
-        margin=dict(l=150),   # Minimal margins to reduce empty spaces
-    )
-    fig.update_xaxes(
-        scaleanchor="y",  # This keeps the aspect ratio between x and y consistent
-        scaleratio=3
-    )
-
-    fig.update_yaxes(
-        scaleanchor="x",
-        scaleratio=1.5
+        margin=dict(l=200, r=10, t=50, b=50), # Minimal margins to reduce empty spaces
     )
     return fig
 
@@ -334,7 +332,12 @@ def manage_selected_cell_and_modal(clickData, close_button_clicks):
         y = clicked_point['y']
         value = clicked_point['z']
 
-        figure_data = figure_map.get(x, {}).get(y)
+        clean_label = re.sub(r"</?b>", "", y)
+
+        figure_data = figure_map.get(x, {}).get(clean_label)
+
+        # print("!", figure_map[x].keys())
+        # print("!!", y)
         if figure_data is None:
             return None, {'display': 'none'}, None, {'display': 'none'}
         figure = figure_data['figure']
@@ -380,7 +383,7 @@ def manage_selected_cell_and_modal(clickData, close_button_clicks):
                     }
                 ),
                 # Title
-                html.H1(x + "," + y, style={
+                html.H1(x + "," + clean_label, style={
                     'fontSize': '28px',
                     'fontWeight': 'bold',
                     'color': '#34495e',
