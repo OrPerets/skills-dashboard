@@ -357,8 +357,8 @@ def update_heatmap(selected_columns, screen_size_data):
         ),
         plot_bgcolor="rgba(0,0,0,0)",           # Transparent background
         paper_bgcolor="rgba(255,255,255,1)",   # White figure background
-        height=int(height*0.7),                    # Adjust for the screen size
-        width=int(width*0.8),                      # Adjust for the screen size
+        height=int(height*0.9),                    # Adjust for the screen size
+        width=int(width*0.85),                      # Adjust for the screen size
         margin=dict(l=10, r=50, t=10, b=10), # Minimal margins to reduce empty spaces
     )
     return fig
