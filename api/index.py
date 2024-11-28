@@ -8,7 +8,6 @@ import json
 import os
 from .figures_map import *
 import re
-# import subprocess
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
@@ -48,7 +47,7 @@ dashApp.layout = html.Div(style={
         'top': '50%',
         'left': 0,
         'transform': 'translateY(-50%)',
-        'width': '250px',  # Fixed width for sidebar
+        'width': '200px',  # Fixed width for sidebar
         'backgroundColor': '#34495e',
         'padding': '20px',
         'color': '#ecf0f1',
@@ -98,63 +97,91 @@ dashApp.layout = html.Div(style={
         })
     ]),
     # Main Content
+html.Div(style={
+    'flex': 1,
+    'display': 'flex',
+    'flexDirection': 'column',
+    'alignItems': 'center',
+    'justifyContent': 'center',
+    'backgroundColor': '#ecf0f1',
+    'padding': '20px',
+    'boxSizing': 'border-box',
+    'marginLeft': '250px'
+}, children=[
+        # Heatmap Header and Graph
+    html.H1("מפת חום - תחומי החיים", style={
+        'textAlign': 'center',
+        'color': '#2c3e50',
+        'fontSize': '32px',
+        'marginBottom': '20px',
+        'fontFamily': 'Arial, sans-serif',
+        'direction': 'rtl',
+        'marginTop': "-10%"
+    }),
+    # Size Adjustment Controls in a Column with Different Colors
     html.Div(style={
-        'flex': 1,  # Take remaining space
+        'position': 'fixed',
+        'top': '10px',
+        'right': '10px',
+        'zIndex': 1001,
         'display': 'flex',
         'flexDirection': 'column',
         'alignItems': 'center',
-        'justifyContent': 'center',
-        'backgroundColor': '#ecf0f1',
-        'padding': '20px',
-        'boxSizing': 'border-box',
-        'marginLeft': '250px'  # To prevent overlap with floating sidebar
+        'gap': '15px',  # Spacing between buttons
     }, children=[
-        html.Div(style={
-            'position': 'fixed',
-            'top': '10px',
-            'right': '10px',
-            'zIndex': 1001,  # Above the main content
-            'display': 'flex',
-            'flexDirection': 'row',
-            'gap': '10px'
-        }, children=[
-            html.Button("הגדל", id='increase-size-button', n_clicks=0, style={
-                'fontSize': '16px',
-                'backgroundColor': '#2980b9',
-                'color': '#ffffff',
-                'border': 'none',
-                'padding': '10px 20px',
-                'borderRadius': '5px',
-                'cursor': 'pointer',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.3)',
-                'direction': 'rtl'
-            }),
-            html.Button("הקטן", id='decrease-size-button', n_clicks=0, style={
-                'fontSize': '16px',
-                'backgroundColor': '#c0392b',
-                'color': '#ffffff',
-                'border': 'none',
-                'padding': '10px 20px',
-                'borderRadius': '5px',
-                'cursor': 'pointer',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.3)',
-                'direction': 'rtl'
-            })
-        ]),
-        html.H1("מפת חום - תחומי החיים", style={
-            'textAlign': 'center',
-            'color': '#2c3e50',
-            'fontSize': '32px',
-            'marginBottom': '20px',
-            'fontFamily': 'Arial, sans-serif',
-            'direction': 'rtl',
-            'marginTop': "-10%"
+        # Increase Height Button (Teal)
+        html.Button("+ \n \u2B06", id='increase-height-button', n_clicks=0, style={
+            'fontSize': '20px',
+            'backgroundColor': '#1abc9c',  # Teal color for height buttons
+            'color': '#ffffff',
+            'border': 'none',
+            'width': '50px',
+            'height': '50px',
+            'borderRadius': '50%',
+            'cursor': 'pointer',
+            'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.3)',
         }),
-        dcc.Graph(id='heatmap', config={'clickmode': 'event+select', 'displayModeBar': False}, style={
-            # 'width': '100%',
-            # 'height': '100%',
-            'boxShadow': '0 4px 10px rgba(0, 0, 0, 0.1)',
+        # Decrease Height Button (Teal)
+        html.Button("− \n \u2B07", id='decrease-height-button', n_clicks=0, style={
+            'fontSize': '20px',
+            'backgroundColor': '#1abc9c',  # Teal color for height buttons
+            'color': '#ffffff',
+            'border': 'none',
+            'width': '50px',
+            'height': '50px',
+            'borderRadius': '50%',
+            'cursor': 'pointer',
+            'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.3)',
         }),
+        # Increase Width Button (Blue)
+        html.Button("+ \n \u27A1", id='increase-width-button', n_clicks=0, style={
+            'fontSize': '20px',
+            'backgroundColor': '#2980b9',  # Blue color for width buttons
+            'color': '#ffffff',
+            'border': 'none',
+            'width': '50px',
+            'height': '50px',
+            'borderRadius': '50%',
+            'cursor': 'pointer',
+            'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.3)',
+        }),
+        # Decrease Width Button (Blue)
+        html.Button("− \n \u2B05", id='decrease-width-button', n_clicks=0, style={
+            'fontSize': '20px',
+            'backgroundColor': '#2980b9',  # Blue color for width buttons
+            'color': '#ffffff',
+            'border': 'none',
+            'width': '50px',
+            'height': '50px',
+            'borderRadius': '50%',
+            'cursor': 'pointer',
+            'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.3)',
+        }),
+    ]),
+    dcc.Graph(id='heatmap', config={'clickmode': 'event+select', 'displayModeBar': False}, style={
+        'boxShadow': '0 4px 10px rgba(0, 0, 0, 0.1)',
+    }),
+
     ]),
     dcc.Store(id='screen-size-store'),
     html.Script('''
@@ -289,16 +316,21 @@ def convert_AI_label(y_axis_labels):
         if "AI" in y_axis_labels[i]:
             y_axis_labels[i] = y_axis_labels[i].replace("AI", "<b>בינה מלאכותית</b>")
 
-
 @dashApp.callback(
     Output('heatmap', 'figure'),
     [Input('column-checklist', 'value'),
-     Input('screen-size-store', 'data')]
+     Input('screen-size-store', 'data'),
+     Input('heatmap-size', 'data')]
 )
-def update_heatmap(selected_columns, screen_size_data):
+def update_heatmap(selected_columns, screen_size_data, heatmap_size_data):
     if screen_size_data is None:
-        screen_size_data = {'width': 1200, 'height': 750}  
-    df, y_axis_categories, _ = load_data('example.json')  # Load JSON instead of Excel
+        screen_size_data = {'width': 1200, 'height': 750}
+
+    if heatmap_size_data is None:
+        heatmap_size_data = {'width': 1100, 'height': 750}
+
+    # Load JSON data
+    df, y_axis_categories, _ = load_data('example.json')
 
     # Filter columns based on selection
     df_filtered = {key: df[key] for key in selected_columns} if selected_columns else df
@@ -315,53 +347,54 @@ def update_heatmap(selected_columns, screen_size_data):
         for label in y_axis_labels
     ]
     convert_AI_label(y_axis_labels)
-    width, height = get_screen_size()
-    #width = screen_size_data.get('width', 1200)
-    #height = screen_size_data.get('height', 750)
-    print(width, height)
+    # Updated width and height based on heatmap-size
+    width = heatmap_size_data.get('width', 1200)
+    height = heatmap_size_data.get('height', 750)
+
+    # Creating the figure with updated sizes
     fig = go.Figure(
-    data=go.Heatmap(
-        z=z_values,  # Convert dict values to 2D list
-        x=list(df_filtered.keys()),
-        y=y_axis_labels,  # Apply bold formatting to important categories
-        colorscale=[
-            [0.0, '#66C2A5'],  # Green
-            [0.2, '#FEE08B'],  # Yellow
-            [0.4, '#FDAE61'],  # Orange
-            [0.6, '#F46D43'],  # Light Red
-            [0.8, '#D73027'],  # Red
-            [1.0, '#A50026']   # Dark Red
-        ],
-        showscale=False
+        data=go.Heatmap(
+            z=z_values,
+            x=list(df_filtered.keys()),
+            y=y_axis_labels,
+            colorscale=[
+                [0.0, '#66C2A5'],
+                [0.2, '#FEE08B'],
+                [0.4, '#FDAE61'],
+                [0.6, '#F46D43'],
+                [0.8, '#D73027'],
+                [1.0, '#A50026']
+            ],
+            showscale=False
         )
     )
-    
 
-    # Update layout to set a consistent font style
+    # Update layout with new width and height
     fig.update_layout(
         title_x=0.5,
         title_font=dict(size=24, family="Arial, sans-serif"),
         xaxis=dict(
-            tickangle=0,  # Horizontal labels
+            tickangle=0,
             tickfont=dict(size=16, family="Arial", color='#2c3e50'),
             title_text="",
-            side="bottom",   # Keep labels at the top
+            side="bottom",
             automargin=True,
-            constrain="domain"  # Ensure full domain is used for scaling
+            constrain="domain"
         ),
         yaxis=dict(
             tickfont=dict(size=16, family="Arial"),
             automargin=True,
             side="left",
-            # ticklabelposition="outside right",
         ),
-        plot_bgcolor="rgba(0,0,0,0)",           # Transparent background
-        paper_bgcolor="rgba(255,255,255,1)",   # White figure background
-        height=int(height*0.9),                    # Adjust for the screen size
-        width=int(width*0.85),                      # Adjust for the screen size
-        margin=dict(l=10, r=50, t=10, b=10), # Minimal margins to reduce empty spaces
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(255,255,255,1)",
+        height=int(height * 0.9),
+        width=int(width),
+        margin=dict(l=10, r=50, t=10, b=10),
     )
     return fig
+
+
 
 @dashApp.callback(
     Output('column-checklist', 'options'),
@@ -523,23 +556,34 @@ def manage_selected_cell_and_modal(clickData, close_button_clicks):
 
 @dashApp.callback(
     Output('heatmap-size', 'data'),
-    [Input('increase-size-button', 'n_clicks'),
-     Input('decrease-size-button', 'n_clicks')],
+    [Input('increase-width-button', 'n_clicks'),
+     Input('decrease-width-button', 'n_clicks'),
+     Input('increase-height-button', 'n_clicks'),
+     Input('decrease-height-button', 'n_clicks')],
     State('heatmap-size', 'data')
 )
-def update_heatmap_size(increase_clicks, decrease_clicks, current_size):
-    # Adjust heatmap size by 10% based on button clicks
+def update_heatmap_size(increase_width_clicks, decrease_width_clicks,
+                        increase_height_clicks, decrease_height_clicks,
+                        current_size):
+    # Start with current width and height
     new_width = current_size['width']
     new_height = current_size['height']
 
-    if dash.callback_context.triggered_id == 'increase-size-button' and increase_clicks > 0:
+    # Update width
+    if increase_width_clicks > 0 and dash.callback_context.triggered_id == 'increase-width-button':
         new_width *= 1.1
-        new_height *= 1.1
-    elif dash.callback_context.triggered_id == 'decrease-size-button' and decrease_clicks > 0:
+    elif decrease_width_clicks > 0 and dash.callback_context.triggered_id == 'decrease-width-button':
         new_width *= 0.9
+
+    # Update height
+    if increase_height_clicks > 0 and dash.callback_context.triggered_id == 'increase-height-button':
+        new_height *= 1.1
+    elif decrease_height_clicks > 0 and dash.callback_context.triggered_id == 'decrease-height-button':
         new_height *= 0.9
 
+    # Return the updated size as integers
     return {'width': int(new_width), 'height': int(new_height)}
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8051)
