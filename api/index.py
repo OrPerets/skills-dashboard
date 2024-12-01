@@ -76,8 +76,8 @@ def convert_AI_label(y_axis_labels):
 
 # --- App Setup ---
 server = Flask(__name__, static_folder='public')
-app = Dash(__name__, server=server)
-app.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroundColor': "#F8F9FA", 'height': "800px"}, children=[
+dashApp = Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
+dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroundColor': "#F8F9FA", 'height': "800px"}, children=[
     # --- Navbar ---
     dbc.Navbar(
     dbc.Container([
@@ -228,7 +228,7 @@ app.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroundCol
 ])
 
 # --- Callbacks ---
-@app.callback(
+@dashApp.callback(
     Output('heatmap', 'figure'),
     [
         Input('column-checklist', 'value'),
@@ -315,7 +315,7 @@ def update_heatmap(selected_columns, heatmap_size_data, value_range, reset_click
                            font=dict(size=20))
         return fig
 
-@app.callback(
+@dashApp.callback(
     [Output('column-checklist', 'options'),
      Output('column-checklist', 'value')],
     Input('select-all-button', 'n_clicks'),
@@ -336,7 +336,7 @@ def update_checklist_options(n_clicks, current_options):
         return [], []
 
 
-@app.callback(
+@dashApp.callback(
     Output('modal', 'is_open'),
     [Input('heatmap', 'clickData'),
      Input('close-modal', 'n_clicks')],
@@ -353,7 +353,7 @@ def toggle_modal(clickData, n_clicks_close, is_open):
     return is_open
 
 
-@app.callback(
+@dashApp.callback(
     [Output('modal', 'children'),
      Output('modal', 'style')],
     Input('heatmap', 'clickData'),
@@ -395,7 +395,7 @@ def update_modal_content(clickData):
         return [], {}
 
 
-@app.callback(
+@dashApp.callback(
     Output('heatmap-size', 'data'),
     [Input('increase-size-button', 'n_clicks'),
      Input('decrease-size-button', 'n_clicks')],
