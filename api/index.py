@@ -75,8 +75,8 @@ def convert_AI_label(y_axis_labels):
             y_axis_labels[i] = y_axis_labels[i].replace("AI", "<b>בינה מלאכותית</b>")
 
 # --- App Setup ---
-server = Flask(__name__, static_folder='public')
-dashApp = Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Flask(__name__, static_folder='public')
+dashApp = Dash(__name__, server=app, external_stylesheets=[dbc.themes.BOOTSTRAP])
 dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroundColor': "#F8F9FA", 'height': "800px"}, children=[
     # --- Navbar ---
     dbc.Navbar(
@@ -423,4 +423,4 @@ def update_heatmap_size(increase_clicks, decrease_clicks, current_size):
 
 
 if __name__ == '__main__':
-    server.run(debug=True, port=8051)
+    app.run(debug=True, port=8051)
