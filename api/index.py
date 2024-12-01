@@ -76,7 +76,7 @@ def convert_AI_label(y_axis_labels):
 
 # --- App Setup ---
 server = Flask(__name__, static_folder='public')
-app = Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, server=server)
 app.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroundColor': "#F8F9FA", 'height': "800px"}, children=[
     # --- Navbar ---
     dbc.Navbar(
