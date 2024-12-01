@@ -76,11 +76,22 @@ def convert_AI_label(y_axis_labels):
 
 # --- App Setup ---
 app = Flask(__name__, static_folder='public')
-dashApp = Dash(__name__, server=app, external_stylesheets=[dbc.themes.BOOTSTRAP])
+dashApp = Dash(__name__, server=app, external_stylesheets=[dbc.themes.CERULEAN])
 dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroundColor': "#F8F9FA", 'height': "800px"}, children=[
     # --- Navbar ---
     dbc.Navbar(
     dbc.Container([
+        html.A(
+                # Use row and col to control vertical alignment of logo / brand
+                # dbc.Row(
+                #     [
+                #         dbc.Col(html.Img(src=logo_path, height="30px")),
+                #     ],
+                #     align="center",
+                #     className="g-0",
+                # ),
+                # style={"textDecoration": "none"},
+            ),
         dbc.Row(
             [
                 dbc.Col(
@@ -209,12 +220,12 @@ dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroun
     # Hidden components for interactivity
     dcc.Store(id='screen-size-store'),
     dcc.Store(id='selected-cell-data'),
-    dcc.Store(id='heatmap-size', data={'width': 1100, 'height': 750}),
+    dcc.Store(id='heatmap-size', data={'width': 1200, 'height': 750}),
 
     # Modal
     dbc.Modal(
         id='modal',
-        size='xl',
+        size='md',
         is_open=False,
         children=[
             dbc.ModalHeader(dbc.ModalTitle("")),
@@ -226,6 +237,16 @@ dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroun
         style={'direction': 'rtl'}
     ),
 ])
+
+def change_x_labels(x_labels):
+    x_axis_labels_modified = []
+    for label in x_labels:
+        if " " in label:  # Check for multiple words
+            modified_label = label.replace(" ", "<br>") # Insert <br> tag
+            x_axis_labels_modified.append(modified_label)
+        else:
+            x_axis_labels_modified.append(label)
+    return ['<b>' + label + '</b>' for label in x_axis_labels_modified]
 
 # --- Callbacks ---
 @dashApp.callback(
@@ -269,7 +290,7 @@ def update_heatmap(selected_columns, heatmap_size_data, value_range, reset_click
         fig = go.Figure(
             data=go.Heatmap(
                 z=z_values_filtered,
-                x=list(df_filtered.keys()),
+                x=change_x_labels(list(df_filtered.keys())),
                 y=y_axis_labels,
                 colorscale='YlOrRd',  # You can experiment with other colorscales
                 hoverongaps=False,
@@ -279,7 +300,7 @@ def update_heatmap(selected_columns, heatmap_size_data, value_range, reset_click
                 hovertemplate='<b>%{x}</b><br>' +
                               '<b>%{y}</b><br>' +
                               'ערך: %{z}<extra></extra>' 
-            )
+            ),
         )
 
         # Update layout
@@ -368,14 +389,14 @@ def update_modal_content(clickData):
             value = clicked_point['z']
 
             figure_data = None  # Replace with actual data retrieval
-            figure_data = figure_map.get(x, {}).get(clean_html_string(y))
+            figure_data = figure_map.get(clean_html_string(x), {}).get(clean_html_string(y))
             if figure_data is None:
-                return None, {'display': 'none'}, None, {'display': 'none'}
+                return dash.no_update, {'display': 'none'}
             figure = figure_data['figure']
             metadata = figure_data['metadata']
 
             modal_content = [
-                dbc.ModalHeader(dbc.ModalTitle(f"{x}, {clean_html_string(y)}")),
+                dbc.ModalHeader(dbc.ModalTitle(f"{clean_html_string(x)}, {clean_html_string(y)}")),
                 dbc.ModalBody([
                     html.H5(metadata["survey_item"]),
                     dcc.Graph(figure=figure),
