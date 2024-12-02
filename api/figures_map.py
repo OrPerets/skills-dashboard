@@ -42,7 +42,9 @@ def generate_dynamic_figure(x, y):
     ])
     fig.update_layout(
         xaxis_title=x,
-        yaxis_title=y
+        yaxis_title=y,
+        plot_bgcolor="rgba(248,249,250,1)",
+        paper_bgcolor="rgba(248,249,250,1)",
     )
     return fig
 

@@ -56,7 +56,49 @@ def convert_AI_label(y_axis_labels):
 
 # --- App Setup ---
 app = Flask(__name__, static_folder='public')
-dashApp = Dash(__name__, server=app, external_stylesheets=[dbc.themes.MINTY])
+dashApp = Dash(__name__, server=app, external_stylesheets=[dbc.themes.SANDSTONE])
+
+navbar = html.Div(
+    [
+        html.Nav(  # Use an HTML nav element for semantic correctness
+            dbc.Container(
+                [
+                    dbc.Row(
+                        [
+                            dbc.Col(
+                                html.A(
+                                    html.H1("מפת חום - תחומי חיים", className="navbar-brand", style={"fontSize": "2rem"}),
+                                    href="/",
+                                ),
+                                width=4,  # Adjust width as needed
+                            ),
+                            dbc.Col(
+                                html.Div(id='user-info'),  # Placeholder for user info
+                                width=4, align="center",
+                            ),
+                            dbc.Col(
+                                html.Div([
+                                     # Example: Add a search input
+                                    dbc.Input(type="search", placeholder="Search...", style={"marginRight": "10px"}),
+                                    dbc.Button("Search", color="primary", className="me-2"), # Add button next to search
+                                ],
+                                style={"display": "flex", "alignItems": "center", "justifyContent": "flex-end"}
+                                ),
+                                width=4,
+                            ),
+                        ],
+                        justify="between", # Distribute space between columns
+                        align="center",
+                        style={"height": "100%"}, # Make sure row takes full navbar height
+                    )
+                ],
+                fluid=True,
+            ),
+            className="custom-navbar",  # Class for custom styling
+        ),
+    ]
+)
+
 dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroundColor': "#F8F9FA"}, children=[
     # --- Navbar ---
     dbc.Navbar(
@@ -156,7 +198,7 @@ dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroun
                                 'modeBarButtonsToRemove': ['select2d', 'lasso2d'],
                                 'scrollZoom': True
                             },
-                            style={'width': '100%', 'height': '80vh'}
+                            style={'width': '100%', 'height': '100%'}
                         ),
                     ),
                 ]),
@@ -167,7 +209,8 @@ dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroun
     # Hidden components for interactivity
     dcc.Store(id='screen-size-store'),
     dcc.Store(id='selected-cell-data'),
-    dcc.Store(id='heatmap-size', data={'width': 1100, 'height': 750}),
+    # dcc.Store(id='heatmap-size', data={'width': 1400, 'height': 750}),
+    dcc.Interval(id='interval-component', interval=1000, n_intervals=0, max_intervals=1),
 
     dbc.Modal(
     id='modal',
@@ -201,6 +244,19 @@ dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroun
 )
 ])
 
+dashApp.clientside_callback(
+    """
+    function(n_intervals) {
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+    }
+    """,
+    Output('screen-size-store', 'data'),
+    [Input('interval-component', 'n_intervals')]
+)
+
 def change_x_labels(x_labels):
     x_axis_labels_modified = []
     for label in x_labels:
@@ -211,18 +267,17 @@ def change_x_labels(x_labels):
             x_axis_labels_modified.append(label)
     return ['<b>' + label + '</b>' for label in x_axis_labels_modified]
 
-# --- Callbacks ---
 @dashApp.callback(
     Output('heatmap', 'figure'),
     [
         Input('column-checklist', 'value'),
-        Input('heatmap-size', 'data'),
         Input('value-range-slider', 'value'),
         Input('colorscale-dropdown', 'value'),
+        Input('screen-size-store', 'data'),
     ],
-    prevent_initial_call=True
+    prevent_initial_call=False
 )
-def update_heatmap(selected_columns, heatmap_size_data, value_range, selected_colorscale):
+def update_heatmap(selected_columns, value_range, selected_colorscale, screen_size_data):
     try:
         # Load data
         df, y_axis_categories = load_data('example.json')
@@ -240,9 +295,15 @@ def update_heatmap(selected_columns, heatmap_size_data, value_range, selected_co
         y_axis_labels = update_y_axis_categories_with_extra_column(y_axis_categories)
         convert_AI_label(y_axis_labels)
 
-        # Heatmap size
-        width = heatmap_size_data.get('width', 1100)
-        height = heatmap_size_data.get('height', 750)
+        # Adjust heatmap size based on screen dimensions
+        if screen_size_data:
+            width = screen_size_data.get('width', 1100)
+            height = screen_size_data.get('height', 750)
+            adjusted_width = width * 0.75  # Adjust as needed
+            adjusted_height = height * 0.8
+        else:
+            adjusted_width = 1100
+            adjusted_height = 750
 
         # Create figure
         fig = go.Figure(
@@ -250,13 +311,13 @@ def update_heatmap(selected_columns, heatmap_size_data, value_range, selected_co
                 z=z_values_filtered,
                 x=change_x_labels(list(df_filtered.keys())),
                 y=y_axis_labels,
-                colorscale=selected_colorscale,  # Use selected colorscale
+                colorscale=selected_colorscale,
                 hoverongaps=False,
                 showscale=False,
-                colorbar=dict(title="ערך", titleside="right"),  # Hebrew title
+                colorbar=dict(title="ערך", titleside="right"),
                 hovertemplate='<b>%{x}</b><br>' +
                               '<b>%{y}</b><br>' +
-                              'ערך: %{z}<extra></extra>' 
+                              'ערך: %{z}<extra></extra>'
             ),
         )
 
@@ -277,9 +338,9 @@ def update_heatmap(selected_columns, heatmap_size_data, value_range, selected_co
                 side="left",
             ),
             plot_bgcolor="rgba(0,0,0,0)",
-            paper_bgcolor="white",  # Light gray background
-            height=height,
-            width=width,
+            paper_bgcolor="white",
+            height=adjusted_height,
+            width=adjusted_width,
             margin=dict(l=10, r=10, t=10, b=10),
         )
 
@@ -357,7 +418,7 @@ def update_modal_content(clickData):
             dbc.ModalTitle(f"{clean_html_string(x)}, {clean_html_string(y)}", style={"fontWeight": "bold", "fontSize": "32px"}),
             style={"textAlign": "center", "width": "100%"} # Center the div
         ),
-        close_button=False, 
+        # close_button=False, 
         style={"padding": "15px"}
     ),
                 dbc.ModalBody([
@@ -368,13 +429,13 @@ def update_modal_content(clickData):
             }),
                     dcc.Graph(figure=figure, config={'displayModeBar': False}),
                     html.P(metadata["notes"]),
-                    html.A("למידע נוסף לחץ כאן", href=metadata["link"], target="_blank", style={"display": "block", "textAlign": "center", "marginTop": "10px", "fontSize": "18px"}),
+                    html.A("למידע נוסף לחץ כאן", href=metadata["link"], target="_blank", style={"display": "block", "textAlign": "center", "color": "black", "marginTop": "10px", "fontSize": "18px"}),
                 ], style={
         'backgroundColor': '#f8f9fa', 
         'padding': '20px'
     }),
                 dbc.ModalFooter(
-                    dbc.Button("סגור", id='close-modal', className="ml-auto", style={"backgroundColor": "lightgray", "color": "black"})
+                    dbc.Button("סגור", id='close-modal', className="ml-auto", style={"backgroundColor": "lightgray", "color": "black", "display": "none"})
                 ),
             ]
             modal_style = {'direction': 'rtl'}
