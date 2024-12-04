@@ -2,9 +2,37 @@ import plotly.graph_objects as go
 import random
 import json
 
+def update_json_with_random(filepath):
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:  # Ensure UTF-8 encoding for Hebrew
+            data = json.load(f)
+
+        for item in data:
+            for key, value in item.items():
+                if isinstance(value, int):  # Check if the value is an integer (numeric)
+                    item[key] = random.randint(0, 10)
+
+        with open(filepath, 'w', encoding='utf-8') as f:  # Overwrite the file
+            json.dump(data, f, indent=4, ensure_ascii=False)  # Preserve Hebrew characters
+
+
+    except FileNotFoundError:
+        print(f"Error: File not found at {filepath}")
+    except json.JSONDecodeError:
+        print(f"Error: Invalid JSON format in {filepath}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+
+
 # Load the measurement data from JSON file
 with open("public/measurement_map.json", encoding="utf-8") as f:
     data = json.load(f)
+    for item in data:
+            for key, value in item.items():
+                if isinstance(value, int):  # Check if the value is an integer (numeric)
+                    item[key] = random.randint(0, 10)
+
 
 # Combine relevant columns for unique metric identification and prepare the data
 data = [
