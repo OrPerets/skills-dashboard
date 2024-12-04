@@ -1,6 +1,25 @@
 import plotly.graph_objects as go
 import random
 import json
+import re
+
+def extract_bracketed_values(text):
+    """Extracts the values inside square brackets from a string.
+    
+    Args:
+        text: The input string.
+
+    Returns:
+        A list of strings containing the bracketed values, or None if no brackets are found.
+    """
+    match = re.search(r"\[(.*?)\]", text)  # Non-greedy match to handle multiple brackets
+    if match:
+        values_string = match.group(1)
+        values = [value.strip() for value in values_string.split(",")]
+        return values
+    else:
+        return None  # Or return an empty list if you prefer: []
+
 
 def update_json_with_random(filepath):
     try:
@@ -57,63 +76,80 @@ def normalize_key(key):
     return tuple(str(x).strip() for x in key)
 
 # Function to generate a mock bar chart
-def generate_dynamic_figure(x, y):
-    categories = ['Category A', 'Category B', 'Category C', 'Category D']
-    values = [random.randint(5, 30) for _ in categories]
+def generate_dynamic_figure(x, y, values):
+    if values:
+        categories = values
+    else:
+        categories = ['Category A', 'Category B', 'Category C', 'Category D']  # Default if no values
+    values_counts = [random.randint(5, 30) for _ in categories] # Mock values
     fig = go.Figure(data=[
         go.Bar(
-            x=categories,
-            y=values,
+            x=categories,  # Use the provided values
+            y=values_counts,
             marker_color='indianred',
             width=0.8,
         )
     ])
-    fig.update_layout(
-        xaxis_title=x,
-        yaxis_title=y,
-        plot_bgcolor="rgba(248,249,250,1)",
-        paper_bgcolor="rgba(248,249,250,1)",
-    )
-    return fig
-
-def generate_pie_chart(x, y):
-    labels = ['Section A', 'Section B', 'Section C', 'Section D']
-    values = [random.randint(5, 30) for _ in labels]
-    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])  # Donut chart
-    fig.update_layout(
-        title=f"{x} - {y}",  # Use x and y in the title
-        plot_bgcolor="rgba(248,249,250,1)",
-        paper_bgcolor="rgba(248,249,250,1)",
-    )
-    return fig
-
-
-def generate_scatter_plot(x, y):
-    x_values = [random.random() for _ in range(20)]
-    y_values = [random.random() for _ in range(20)]
-
-    fig = go.Figure(data=go.Scatter(x=x_values, y=y_values, mode='markers'))
-    fig.update_layout(
-        xaxis_title=x,
-        yaxis_title=y,
-        plot_bgcolor="rgba(248,249,250,1)",
-        paper_bgcolor="rgba(248,249,250,1)",
-    )
-    return fig
-
-def generate_line_chart(x, y):
-    x_values = list(range(10))  # Example x-values
-    y_values = [random.randint(10, 30) for _ in range(10)]  # Example y-values
-
-    fig = go.Figure(data=go.Scatter(x=x_values, y=y_values, mode='lines+markers')) # lines+markers for points and lines
-    fig.update_layout(
-        xaxis_title=x,
-        yaxis_title=y,
-        plot_bgcolor="rgba(248,249,250,1)",
-        paper_bgcolor="rgba(248,249,250,1)",
+    fig.update_layout(  # ... (rest of layout code)
+        xaxis_title = x, # for bar
+        yaxis_title = y # for bar
 
     )
     return fig
+
+def generate_pie_chart(x, y, values):  # Add 'values' as a parameter
+    if values:
+        labels = values
+    else:
+        labels = ['Section A', 'Section B', 'Section C', 'Section D'] # Default
+
+    values_counts = [random.randint(5, 30) for _ in labels] # Mock data
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values_counts, hole=.3)])
+    fig.update_layout(  # ... (rest of layout code)
+         title=f"{x} - {y}",  # Use x and y in the title
+
+    )
+    return fig
+
+
+
+def generate_scatter_plot(x, y, values):
+    if values:  # Use values if available, otherwise default to random values
+        x_values = values
+    else:
+        x_values = [random.random() for _ in range(20)]
+    
+    y_values = [random.random() for _ in range(20)] # Mock data
+
+    fig = go.Figure(data=go.Scatter(x=x_values, y=y_values, mode='markers')) # ...
+
+
+    fig.update_layout( # ... rest of the code
+
+        xaxis_title = x, #for scatter
+        yaxis_title = y #for scatter
+    )
+    return fig
+
+
+
+
+def generate_line_chart(x, y, values):
+    if values:  # Use values if available, otherwise default to a range
+        x_values = values
+    else:
+        x_values = list(range(10))
+
+    y_values = [random.randint(10, 30) for _ in range(len(x_values))]  # Example y-values
+
+    fig = go.Figure(data=go.Scatter(x=x_values, y=y_values, mode='lines+markers'))
+    fig.update_layout(  # ... rest of layout
+        xaxis_title = x, # for line
+        yaxis_title = y # for line
+    )
+
+    return fig
+
 
 
 # Initialize figure_map
@@ -141,17 +177,20 @@ for row in rows:
                 'notes': item.get('הערות', "")
             } 
 
+            values = extract_bracketed_values(item.get("פריט/היגד מקורי", ""))
+
+
             if item.get("גרף", "") == "bar":
             # Generating a figure (mocked for now, but can be adjusted to use actual data)
-                figure = generate_dynamic_figure(row, col)
+                figure = generate_dynamic_figure(row, col, values)
             elif item.get("גרף", "") == "scatter":
-                figure = generate_scatter_plot(row, col)
+                figure = generate_scatter_plot(row, col, values)
             elif item.get("גרף", "") == "line":
-                figure = generate_line_chart(row, col)
+                figure = generate_line_chart(row, col, values)
             elif item.get("גרף", "") == "pie":
-                figure = generate_pie_chart(row, col)
+                figure = generate_pie_chart(row, col, values)
             else:
-                figure = generate_dynamic_figure(row, col)
+                figure = generate_dynamic_figure(row, col, values)
 
             # Store in the map
             dynamic_figure_map[row][col] = {
