@@ -10,7 +10,7 @@ import re
 import logging
 
 # Import your figures_map if needed
-from figures_map import figure_map  # Assuming this file contains your figure data
+from .figures_map import figure_map  # Assuming this file contains your figure data
 
 logging.basicConfig(level=logging.DEBUG)
 print("Starting Flask server...")
