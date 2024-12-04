@@ -72,27 +72,13 @@ navbar = html.Div(
                                 ),
                                 width=4,  # Adjust width as needed
                             ),
-                            dbc.Col(
-                                html.Div(id='user-info'),  # Placeholder for user info
-                                width=4, align="center",
-                            ),
-                            dbc.Col(
-                                html.Div([
-                                     # Example: Add a search input
-                                    dbc.Input(type="search", placeholder="Search...", style={"marginRight": "10px"}),
-                                    dbc.Button("Search", color="primary", className="me-2"), # Add button next to search
-                                ],
-                                style={"display": "flex", "alignItems": "center", "justifyContent": "flex-end"}
-                                ),
-                                width=4,
-                            ),
                         ],
                         justify="between", # Distribute space between columns
                         align="center",
                         style={"height": "100%"}, # Make sure row takes full navbar height
                     )
                 ],
-                fluid=True,
+                # fluid=True,
             ),
             className="custom-navbar",  # Class for custom styling
         ),
@@ -314,10 +300,10 @@ def update_heatmap(selected_columns, value_range, selected_colorscale, screen_si
                 colorscale=selected_colorscale,
                 hoverongaps=False,
                 showscale=False,
+                ygap=2,
+                xgap=2,
                 colorbar=dict(title="ערך", titleside="right"),
-                hovertemplate='<b>%{x}</b><br>' +
-                              '<b>%{y}</b><br>' +
-                              'ערך: %{z}<extra></extra>'
+                hovertemplate='לחץ כאן עבור מידע נוסף בנושא <br> %{x} + %{y}<extra></extra>' # Updated hovertemplate
             ),
         )
 
@@ -342,6 +328,12 @@ def update_heatmap(selected_columns, value_range, selected_colorscale, screen_si
             height=adjusted_height,
             width=adjusted_width,
             margin=dict(l=10, r=10, t=10, b=10),
+            hoverlabel=dict(
+        bgcolor="white",       # Background color of the hover label
+        bordercolor="black",   # Border color of the hover label
+        font_size=16,       # Font size of the hover label
+        font_family="Arial",  # Font family of the hover label
+    )
         )
 
         return fig
