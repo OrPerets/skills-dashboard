@@ -6,8 +6,7 @@
         "סעיף / היגד על": "מציאת עבודה באמצעות האינטרנט",
         "פריט/היגד מקורי": "Have you ever successfully found a JOB through the Internet? [Yes, No, Don’t know]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"bar"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "תעסוקה",
@@ -16,28 +15,25 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "תעסוקה",
         "מאפיין": "ניהול מידע",
         "התנהגות / עמדות / ידע": "ידע",
-        "סעיף / היגד על": "רמת הידע והמיומנות בניהול מידע דיגיטלי בענן בעבודה",
-        "פריט/היגד מקורי": "I can securely access, synchronise and share information at work across different devices",
+        "סעיף / היגד על": "רמת הידע והמיונות בניהול מידע דיגיטלי בענן בעבודה",
+        "פריט/היגד מקורי": "I can securely access, synchronise and share information at work across different devices]",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "תעסוקה",
         "מאפיין": "תקשורת",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "יכולת לנהל פרופיל ברשת לצורך תעסוקה ויכולת להתנהל בכלים דיגיטליים במקום העבודה",
-        "פריט/היגד מקורי": "I can communicate in the workplace digitally using messaging applications, I can set up and manage an account on a professional online network/community/job site, \nI can use workplace digital tools to create, share and collaborate with colleagues",
+        "פריט/היגד מקורי": "I can communicate in the workplace digitally using messaging applications, \nI can set up and manage an account on a professional online network/community/job site, \nI can use workplace digital tools to create, share and collaborate with colleagues",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף": "bar"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "תעסוקה",
@@ -46,8 +42,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "תעסוקה",
@@ -56,8 +51,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "תעסוקה",
@@ -66,8 +60,7 @@
         "סעיף / היגד על": "יכולת להשלים רשומה דיגיטלית ",
         "פריט/היגד מקורי": "I can complete digital records on behalf of, or within my organisation, \nI can access salary and tax information digitally",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "תעסוקה",
@@ -76,8 +69,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "תעסוקה",
@@ -86,8 +78,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "תעסוקה",
@@ -96,8 +87,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "תעסוקה",
@@ -106,8 +96,7 @@
         "סעיף / היגד על": "יכולת לשפר תפוקה אישית או ארגונית באמצעות כלים דיגיטלים",
         "פריט/היגד מקורי": "I can improve my skills and ability to do new things at work using online tutorials, learning platforms and how-to guides, I can improve my own and/or the organisation's productivity using digital tools",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "תעסוקה",
@@ -116,8 +105,7 @@
         "סעיף / היגד על": "יכולת לאתר מידע באינטרנט לפתרון בעיות בחברה",
         "פריט/היגד מקורי": "",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "תעסוקה",
@@ -126,8 +114,7 @@
         "סעיף / היגד על": "שימוש באינטרנט לצורך יצירת קשר, קידום או שיתוף פעולה עם עמיתים",
         "פריט/היגד מקורי": "Now I’d like you to think about the different things people do online at work. Have you ever used the Internet to… [Yes, No, Don’t know] [Promote yourself or your services, Collaborate with colleagues on work tasks, Compose or research reports, documents or other information materials]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"scatter"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "תעסוקה",
@@ -136,8 +123,7 @@
         "סעיף / היגד על": "מידת ההתאמה בין הכישורים הדיגיטליים האישיים לכישורים הנדרשים בעבודה",
         "פריט/היגד מקורי": "Thinking about how well your computer and online skills match the requirements of your work, would you say… [Yes, No, Don’t know] [Your digital skills are a good match for your current job, If you had better digital skills you could do y our job better, If you had better digital skills you could get a better job]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"scatter"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "תעסוקה",
@@ -146,48 +132,43 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "תעסוקה",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },  
     {
         "תחום": "תעסוקה",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "עמדות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },  
     {
         "תחום": "תעסוקה",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "ידע",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },     
     {
         "תחום": "בריאות",
         "מאפיין": "ניהול מידע",
         "התנהגות / עמדות / ידע": "התנהגות",
-        "סעיף / היגד על": "חשש מחשיפת דוחות רפואיים אישיים",
+        "סעיף / היגד על": "חשש מחשיפת דו\"חות רפואיים אישיים",
         "פריט/היגד מקורי": "",
         "מקור": "",
-        "קישור": "",
-        "גרף":"pie"
+        "קישור": ""
     },
     {
         "תחום": "בריאות",
@@ -196,8 +177,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
@@ -206,8 +186,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
@@ -216,8 +195,7 @@
         "סעיף / היגד על": "שימוש בתקשורת מקוונת רפואית",
         "פריט/היגד מקורי": "",
         "מקור": "",
-        "קישור": "",
-        "גרף":"pie"
+        "קישור": ""
     },
     {
         "תחום": "בריאות",
@@ -226,8 +204,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
@@ -236,8 +213,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
@@ -246,8 +222,7 @@
         "סעיף / היגד על": "יכולת מילוי טפסים מקווונים בשירותי הבריאות",
         "פריט/היגד מקורי": "I can fill in forms online to access the services I need",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "בריאות",
@@ -256,8 +231,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
@@ -266,8 +240,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
@@ -276,8 +249,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
@@ -286,8 +258,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
@@ -296,8 +267,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
@@ -306,8 +276,7 @@
         "סעיף / היגד על": "ביצוע פעולות בשירותי הבריאות (כמו הזמנת תור) באמצעות האינטרנט",
         "פריט/היגד מקורי": " In the past 6 months, have you done any of the following on the internet? [Yes, No] [Booked a medical appointment or accessed a health service ] ",
         "מקור": "Australian Digital Inclusion Index",
-        "קישור": "Australian Internet Usage Survey",
-        "גרף":"pie"
+        "קישור": "Australian Internet Usage Survey"
     },
     {
         "תחום": "בריאות",
@@ -316,8 +285,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
@@ -326,38 +294,34 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "עמדות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בריאות",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "ידע",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -366,8 +330,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -376,8 +339,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -386,9 +348,7 @@
         "סעיף / היגד על": "הכרות עם כלים לניהול מידע פיננסי ברשת",
         "פריט/היגד מקורי": "",
         "מקור": "",
-        "קישור": "",
-        "גרף":"bar"
-
+        "קישור": ""
     },
     {
         "תחום": "פיננסים",
@@ -397,8 +357,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -407,9 +366,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
-
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -418,8 +375,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -428,8 +384,7 @@
         "סעיף / היגד על": "יכולת לנהל כספים ועסקאות באינטרנט",
         "פריט/היגד מקורי": "I can manage my money and transactions online",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "פיננסים",
@@ -438,8 +393,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -448,8 +402,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -458,8 +411,7 @@
         "סעיף / היגד על": "שימוש בשירותים דיגיטליים לניהול פיננסי",
         "פריט/היגד מקורי": "ICT: Have you submitted your tax declaration via a website or app for private purpose in the last 12 months?[Yes I did it myself, No, it was done automatically, No, I delievered it to the tax authority in paper format, No, someone else did it on my behalf, No, for other reasons]\nAustralian Internet Usage: In the past 6 months, have you done any of the following on the internet? [Yes, No] [Used banking websites or apps to manage money]",
         "מקור": "Australian Digital Inclusion Index",
-        "קישור": "Australian Internet Usage Survey",
-        "גרף":"scatter"
+        "קישור": "Australian Internet Usage Survey"
     },
     {
         "תחום": "פיננסים",
@@ -468,8 +420,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -478,8 +429,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -488,8 +438,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
@@ -507,38 +456,34 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "עמדות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פיננסים",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "ידע",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
@@ -547,8 +492,7 @@
         "סעיף / היגד על": "יכולת גישה לתוכן בידור באינטרנט",
         "פריט/היגד מקורי": "I can use the Internet to stream or download entertainment content",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "פנאי ובידור",
@@ -557,8 +501,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
@@ -567,8 +510,7 @@
         "סעיף / היגד על": "יכולת גישה לתוכן בידור באינטרנט",
         "פריט/היגד מקורי": "I can use the Internet to stream or download entertainment content",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "פנאי ובידור",
@@ -577,8 +519,7 @@
         "סעיף / היגד על": "מידת השימוש באתרי מדיה/רשתות חברתית ",
         "פריט/היגד מקורי": "Do you ever use social media sites like Facebook, Twitter, or Instagram? [Yes, I use social media sites, No, I do not use social media sites, No answer] ",
         "מקור": "Pew Research Center’s American Trends Panel ",
-        "קישור": "Pew Research Center",
-        "גרף":"bar"
+        "קישור": "Pew Research Center"
     },
     {
         "תחום": "פנאי ובידור",
@@ -587,8 +528,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
@@ -597,8 +537,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     }, 
     {
         "תחום": "פנאי ובידור",
@@ -607,8 +546,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
@@ -617,8 +555,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
@@ -627,8 +564,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
@@ -637,8 +573,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
@@ -647,8 +582,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
@@ -657,8 +591,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
@@ -667,8 +600,7 @@
         "סעיף / היגד על": "תדירות השימוש באינטרנט למטרות פנאי ובידור (כגון: האזנה למוסיקה, צפה בסרטים כדו')",
         "פריט/היגד מקורי": "How often do you go online for the following purposes?[Many times a day, Daily, Weekly, Monthly, Less than monthly, Never, DK] [Play online games with or against other people, Play online games without any other people, Download music, Listen to music online, Download videos, Watch movies, films or videos online, Look at pictures or photos online, Watch TV programs online, Listen to a podcast, Read a n e-book online , like on a Kindle]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"scatter"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "פנאי ובידור",
@@ -677,8 +609,7 @@
         "סעיף / היגד על": "מידת החשיבות של פלטפורמות בידור שונות (טלוויזיה, רדיו וכדו')",
         "פריט/היגד מקורי": "People like different kinds of ENTERTAINMENT. How important is each of the following for your ENTERTAINMENT? Would you say they are [Essential, Very important, Important, Not so important, Not important at all, Don't know] [Television, Radio, Spending time with other people, The internet]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"scatter"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "פנאי ובידור",
@@ -687,39 +618,34 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
-        
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "עמדות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "פנאי ובידור",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "ידע",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -728,8 +654,7 @@
         "סעיף / היגד על": "תדירות השימוש באינטרנט לצרכי למידה (ביצוע פרויקט, מחקר וכדו)",
         "פריט/היגד מקורי": "Some people go online to support their LEARNING in some way, many others do not. How often, if ever, do you go online for the following purposes? [Many times a day, Daily, Weekly, Monthly, Less than monthly, Never, DK] [Finding or checking a fact, Completing a school or work project, Investigating topics of personal interest, To learn how to do something yourself, like repair something around the house or a DIY project]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"scatter"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "למידה",
@@ -738,8 +663,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -748,8 +672,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -758,8 +681,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -768,8 +690,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -778,8 +699,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -788,8 +708,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -798,8 +717,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -808,8 +726,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -818,8 +735,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -828,8 +744,7 @@
         "סעיף / היגד על": "שימוש באינטרנט מסייע בשיפור מיומנויות וכישורים",
         "פריט/היגד מקורי": "I can use the Internet to improve my skills and ability to do new things",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "למידה",
@@ -838,8 +753,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
@@ -848,8 +762,7 @@
         "סעיף / היגד על": "תדירות השימוש באינטרנט לצרכי למידה מקוונת",
         "פריט/היגד מקורי": "Have you conducted any of the following learning activities over the internet for educational, professional or private purposes in the last 3 months?[ Doing an online course, Using online learning material other than a complete online course, Communicating with educators or learners using audio or video online tools]",
         "מקור": "ICT Development Index",
-        "קישור": "https://www.itu.int/itu-d/reports/statistics/idi2023/",
-        "גרף":"bar"
+        "קישור": "https://www.itu.int/itu-d/reports/statistics/idi2023/"
     },
     {
         "תחום": "למידה",
@@ -858,8 +771,7 @@
         "סעיף / היגד על": "החיבור לאינטרנט מסייע בלמידה של מיומנויות חדשות",
         "פריט/היגד מקורי": "Being online has helped me to learn a new skill [Strongly disagree-Strongly agree]",
         "מקור": "OFCOM",
-        "קישור": "OFCOM",
-        "גרף":"pie"
+        "קישור": "OFCOM"
     },
     {
         "תחום": "למידה",
@@ -868,38 +780,34 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "עמדות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "למידה",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "ידע",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     
     {
@@ -909,8 +817,7 @@
         "סעיף / היגד על": "מידת השימוש בשירותים ממשלתיים מקוונים",
         "פריט/היגד מקורי": "Talking now about GOVERNMENT information and services, have you done any of the following in the past year? Did you do this offline, online or have you done it both offline and online?[No, Yes, only Offline Yes, only Online Yes, both offline and online, Don’t know] [Get information about local council services, Pay for a local council tax, fine (such as parking fines), rent or service, Get information about Central Government services, such as benefits, taxes, a driving licence or passport, Pay for a central government tax,(such as income tax), or car’s tax disc, Get information about schools or education, Look for information about an MP, local councillor, political party or candidate, Get information about government policy on issues such as transport or the environment , Look on government websites for information on how to stay safe online]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"scatter"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -919,8 +826,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -929,8 +835,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -939,8 +844,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -949,8 +853,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -959,8 +862,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -969,8 +871,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -979,8 +880,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -989,8 +889,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -999,8 +898,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -1009,8 +907,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -1019,8 +916,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -1029,8 +925,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -1039,8 +934,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
@@ -1049,39 +943,35 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "מיצוי זכויות",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "עמדות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
 
     {
         "תחום": "מיצוי זכויות",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "ידע",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1090,8 +980,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1100,8 +989,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1110,8 +998,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1120,8 +1007,7 @@
         "סעיף / היגד על": "יכולת לקיים תקשורת באמצעים מקוונים כגון אפליקציות ומייל",
         "פריט/היגד מקורי": "I can communicate with others digitally using email and other messaging Apps, I can make and receive video calls, I can share files or links with others by attaching to an email, uploading to a website or an application, I can post messages, photographs, videos or blogs on social media platforms",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"bar"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
    
     {
@@ -1131,8 +1017,7 @@
         "סעיף / היגד על": "תדירות השימוש באינטרנט לצורך פעילויות חברתיות",
         "פריט/היגד מקורי": "In the past 6 months, have you done any of the following social activities using the internet? [Yes, No][Interacted with people or content that made you feel connected to a community, Kept in touch with family or friends, Made new friends or reconnected with old friends, Engaged with a club, organisation, or group you found online] ",
         "מקור": "Australian Digital Inclusion Index",
-        "קישור": "Australian Internet Usage Survey",
-        "גרף":"bar"
+        "קישור": "Australian Internet Usage Survey"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1141,8 +1026,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1151,8 +1035,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1161,8 +1044,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1171,8 +1053,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1181,8 +1062,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1191,8 +1071,7 @@
         "סעיף / היגד על": "מידת היכולת לאתר מידע באינטרנט לצורך פתרון בעיה",
         "פריט/היגד מקורי": "Thinking about your online activities (on the Internet or mobile phones) in the last three months , please indicate whether you have done these and whether you were successful (i.e. did you learn something) [This did not happen, I did do this but I didn’t learn anything, I did do this and I learned something, I’m not sure, I don’t understand this question]  [I looked up information online to answer a question I had ,I came across opinions that differed from my own (e.g. in newspapers, on discussion boards, social media)]",
         "מקור": "Digital Skills to Tangible Outcomes (DiSTO)",
-        "קישור": "DiSTO Project",
-        "גרף":"scatter"
+        "קישור": "DiSTO Project"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1201,8 +1080,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1211,8 +1089,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1221,8 +1098,7 @@
         "סעיף / היגד על": "תדירות השימוש ברשתות החברתיות",
         "פריט/היגד מקורי": "Thinking about all of the social media you use, how often do you? [Many times a day-Never, Don't know] [Post on social media, for example Instagram or Facebook, Post pictures or videos you,yourself,took, Comment on someone else's content, Re-post, retweet or share links, news, videos or other content originally posted by others, Get news or information, Like, react to or promote content that other people post, Comment on a political or social issue]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"scatter"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1231,8 +1107,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
@@ -1241,38 +1116,34 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "עמדות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "חברה ותקשורת",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "ידע",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
@@ -1281,8 +1152,7 @@
         "סעיף / היגד על": "יכולת לבצע רכישות באינטרנט\nיכולת להגדיר חשבון מקוון לרכישות מקוונות",
         "פריט/היגד מקורי": "I can buy goods/services online using online payments, I can set up an account online that enables me to buy goods or services",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "צרכנות",
@@ -1291,8 +1161,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
@@ -1301,8 +1170,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
@@ -1311,8 +1179,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
@@ -1321,8 +1188,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
@@ -1331,8 +1197,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     
     {
@@ -1342,8 +1207,7 @@
         "סעיף / היגד על": "תדירות רכישה/מועד רכישה אחרון באינטרנט",
         "פריט/היגד מקורי": "When did you last buy or order goods or services for private use over the internet? [ Within the last months,Between months and a year ago,More than year ago,Never bought or ordered over the internet]",
         "מקור": "ICT Development Index",
-        "קישור": "https://www.itu.int/itu-d/reports/statistics/idi2023/",
-        "גרף":"bar"
+        "קישור": "https://www.itu.int/itu-d/reports/statistics/idi2023/"
     },
     {
         "תחום": "צרכנות",
@@ -1352,8 +1216,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
@@ -1362,8 +1225,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
@@ -1372,8 +1234,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
@@ -1382,8 +1243,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
@@ -1392,8 +1252,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
 
     {
@@ -1403,8 +1262,7 @@
         "סעיף / היגד על": "פילוח השימוש באינטרנט לפעילות צרכנית אישית ",
         "פריט/היגד מקורי": "I’d like you to think about different COMMERCIAL transactions people do in their everyday lives like banking or shopping. Within the last year, how often have you gone online for the following purposes? [Many times a day, Daily, Weekly, Monthly, Less than monthly, Never, DK][Buying a product online, Paying bills, Using your bank’s online services, Comparing products or prices online, Ordering groceries or food online, Selling things online]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"scatter"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "צרכנות",
@@ -1413,8 +1271,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
@@ -1423,38 +1280,34 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "עמדות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "צרכנות",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "ידע",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1463,8 +1316,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1473,8 +1325,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1483,8 +1334,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1493,8 +1343,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1503,8 +1352,7 @@
         "סעיף / היגד על": "מידת תחושת הביטחון ברשת",
         "פריט/היגד מקורי": "I worry about whether something I say online could cause me problems in the future [Strongly disagree-Strongly agree]",
         "מקור": "OFCOM",
-        "קישור": "OFCOM",
-        "גרף":"bar"
+        "קישור": "OFCOM"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1513,8 +1361,7 @@
         "סעיף / היגד על": "מידת האמון בתכנים מקוונים- חדשות",
         "פריט/היגד מקורי": "When you see a news story or article on these types of sites or apps do you ever think about whether it is truthful or accurate?[Yes- all or most of the time... I don't see news stories or articles] ",
         "מקור": "OFCOM",
-        "קישור": "OFCOM",
-        "גרף":"bar"
+        "קישור": "OFCOM"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1523,8 +1370,7 @@
         "סעיף / היגד על": "מידת האמון בתכנים מקוונים- מידע מהרשתות החברתיות",
         "פריט/היגד מקורי": "Thinking now about the leaders of social media companies… How much do you trust that leaders of social media companies will… [A great deal, Some, Very little, Not at all, Not sure, No answer] [Publicly admit mistakes and take responsibility when they misuse or compromise users’ personal data, Be held accountable by the government if they misuse or compromise users’ personal data, Not sell users’ personal data to others without their consent] ",
         "מקור": "Pew Research Center’s American Trends Panel ",
-        "קישור": "Pew Research Center",
-        "גרף":"scatter"
+        "קישור": "Pew Research Center"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1533,8 +1379,7 @@
         "סעיף / היגד על": "יכולת לזהות מידע אמין ברשת",
         "פריט/היגד מקורי": "I can recognise what information or content online may, or may not, be trustworthy, I can be careful with what I share online as I know that online activity produces a permanent record that can be accessed by others",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1543,8 +1388,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1553,8 +1397,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1563,8 +1406,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1573,8 +1415,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1583,8 +1424,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1593,8 +1433,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1603,8 +1442,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1613,8 +1451,7 @@
         "סעיף / היגד על": "מידת הביטחון בחברות להן סופק מידע אישי באופן מקוון",
         "פריט/היגד מקורי": "Thinking about the INFORMATION you are sometimes asked to put online , how COMFORTABLE are you in providing the following types of information online? [Not comfortable at all, not comfortable, fairly comfortable, very comfortable, Don’t know] [Your postal address, Your age, Your phone number, Your credit or debit card number, A picture where your face is clearly visible]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"scatter"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "בטיחות וביטחון",
@@ -1623,38 +1460,34 @@
         "סעיף / היגד על": "ידע לגבי אופי ההתנהלות של פלטפורמות מקוונות",
         "פריט/היגד מקורי": "How do you think search engine websites as Google or Bing/ sites or apps loke YouTube or TikTok, are mainly funded? [The TV licence fee... Haven't heard of it]",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"bar"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "בטיחות וביטחון",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "בטיחות וביטחון",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "עמדות",
         "סעיף / היגד על": "מידת הביטחון במידע שנאסף באופן מקוון על ידי בינה מלאכותית",
         "פריט/היגד מקורי": "As companies use AI to collect and analyze personal details and information, do you think this information will be used in ways… [Definitely will happen, Probably will happen, Probably will not happen, Definitely will not happen, Not sure, No answer][People would not be comfortable with, That were not originally intended, That could make people’s lives easier]; How much do you trust companies to make responsible decisions about how they use AI in their products? [A great deal, Some, Very little, Not at all, Not sure, No answer] ",
         "מקור": "Pew Research Center’s American Trends Panel ",
-        "קישור": "Pew Research Center",
-        "גרף":"scatter"
+        "קישור": "Pew Research Center"
     },
     {
         "תחום": "בטיחות וביטחון",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "ידע",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
@@ -1663,8 +1496,7 @@
         "סעיף / היגד על": "יכולת חיפוש במנועי חיפוש ופלטפורמות מקוונות",
         "פריט/היגד מקורי": "I can use search engines to find information I’m looking for",
         "מקור": "UK Cunsumer Index",
-        "קישור": "UK_ consumer index",
-        "גרף":"pie"
+        "קישור": "UK_ consumer index"
     },
     {
         "תחום": "כללי",
@@ -1673,8 +1505,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
@@ -1683,8 +1514,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
@@ -1693,8 +1523,7 @@
         "סעיף / היגד על": "שימוש ברשתות החברתיות ",
         "פריט/היגד מקורי": "Which if any of these social media apps/sites do you use?",
         "מקור": "OFCOM",
-        "קישור": "OFCOM",
-        "גרף":"bar"
+        "קישור": "OFCOM"
     },
     {
         "תחום": "כללי",
@@ -1703,8 +1532,7 @@
         "סעיף / היגד על": "תדירות השימוש באינטרנט בחיתוך לפי פלטפורמות",
         "פריט/היגד מקורי": "Please think about the time you spend on your smartphone, desktop, laptop or tablet and about activities like social media, messaging, or email. Overall, what best describes how often you go online? [Almost constantly,Many times a day, About once a day, Several times a week, Less often, Don’t know]",
         "מקור": "Oxford Internet Surveys (OxIS) ",
-        "קישור": "OxIS Questionnaire 2019",
-        "גרף":"bar"
+        "קישור": "OxIS Questionnaire 2019"
     },
     {
         "תחום": "כללי",
@@ -1713,8 +1541,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
@@ -1723,8 +1550,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
@@ -1733,8 +1559,7 @@
         "סעיף / היגד על": "אופי השימוש בפלטפורמות מקווות (אחסון קבצים, התקנת אפליקציות וכדו')",
         "פריט/היגד מקורי": "Thinking about your online activities in the last three months , please indicate whether you have done these and whether you were successful (i.e. you managed to buy or pay something or found out about a benefit)? [I didn't do this, I did do this but was unsuccessful, I did do this and was successful, I am not sure, I don't understand the question, Doesn't apply to me] [I tried to buy products or services online , I tried to pay bills online, I used the internet/mobile phone to find out if I can claim a certain benefit or grant]",
         "מקור": "Digital Skills to Tangible Outcomes (DiSTO)",
-        "קישור": "DiSTO Project",
-        "גרף":"scatter"
+        "קישור": "DiSTO Project"
     },
     {
         "תחום": "כללי",
@@ -1743,8 +1568,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
@@ -1753,8 +1577,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
@@ -1763,8 +1586,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
@@ -1773,8 +1595,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
@@ -1783,8 +1604,7 @@
         "סעיף / היגד על": "יכולת לחפש מידע באינטנרט לצורך פתרון בעיות",
         "פריט/היגד מקורי": "I can use the Internet to find information that helps me solve problems",
         "מקור": "UK Cunsumer Index",
-        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html",
-        "גרף":"pie"
+        "קישור": "https://www.lloydsbank.com/consumer-digital-index.html"
     },
     {
         "תחום": "כללי",
@@ -1793,8 +1613,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
@@ -1803,8 +1622,7 @@
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     
     {
@@ -1814,37 +1632,33 @@
         "סעיף / היגד על": "גישה ביתית לאינטרנט",
         "פריט/היגד מקורי": "Do you or does anyone in your household have access to the internet at home? [I have access to the internet and use it at home, I have access to the internet, but I don't use it at home, I do not have internet access at home]",
         "מקור": "OFCOM",
-        "קישור": "OFCOM",
-        "גרף":"bar"
+        "קישור": "OFCOM"
     },
     {
         "תחום": "כללי",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "התנהגות",
         "סעיף / היגד על": "מידת השימוש היומיומי בבינה מלאכותית",
         "פריט/היגד מקורי": "In the past month, to what extent have you chosen to use AI in your day-to-day life? [A lot, A little, Not at all]",
         "מקור": "Office for National Statistics (ONS) UK ",
-        "קישור": "ONS UK survey AI 2023",
-        "גרף":"bar"
+        "קישור": "ONS UK survey AI 2023"
     },
     {
         "תחום": "כללי",
-        "מאפיין":  "בינה מלאכותית",
+        "מאפיין":  "AI",
         "התנהגות / עמדות / ידע": "עמדות",
         "סעיף / היגד על": "NAN",
         "פריט/היגד מקורי": "NAN",
         "מקור": "NAN",
-        "קישור": "NAN",
-        "גרף":"Default"
+        "קישור": "NAN"
     },
     {
         "תחום": "כללי",
-        "מאפיין": "בינה מלאכותית",
+        "מאפיין": "AI",
         "התנהגות / עמדות / ידע": "ידע",
         "סעיף / היגד על": "מידת ההיכרות עם כלי בינה מלאכותית ",
         "פריט/היגד מקורי": "Have you ever heared of the term Artificial Intelligence (AI)? [I have never heared of AI, I have heared of AI but could not explain what it is, I have heared of AI and could give a partial explanation of what it is, I have heared of AI and could explain what it is in detail]",
         "מקור": "Office for National Statistics (ONS) UK ",
-        "קישור": "ONS UK survey AI 2023",
-        "גרף":"bar"
+        "קישור": "ONS UK survey AI 2023"
     }
 ]

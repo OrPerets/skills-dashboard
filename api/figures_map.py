@@ -76,6 +76,46 @@ def generate_dynamic_figure(x, y):
     )
     return fig
 
+def generate_pie_chart(x, y):
+    labels = ['Section A', 'Section B', 'Section C', 'Section D']
+    values = [random.randint(5, 30) for _ in labels]
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])  # Donut chart
+    fig.update_layout(
+        title=f"{x} - {y}",  # Use x and y in the title
+        plot_bgcolor="rgba(248,249,250,1)",
+        paper_bgcolor="rgba(248,249,250,1)",
+    )
+    return fig
+
+
+def generate_scatter_plot(x, y):
+    x_values = [random.random() for _ in range(20)]
+    y_values = [random.random() for _ in range(20)]
+
+    fig = go.Figure(data=go.Scatter(x=x_values, y=y_values, mode='markers'))
+    fig.update_layout(
+        xaxis_title=x,
+        yaxis_title=y,
+        plot_bgcolor="rgba(248,249,250,1)",
+        paper_bgcolor="rgba(248,249,250,1)",
+    )
+    return fig
+
+def generate_line_chart(x, y):
+    x_values = list(range(10))  # Example x-values
+    y_values = [random.randint(10, 30) for _ in range(10)]  # Example y-values
+
+    fig = go.Figure(data=go.Scatter(x=x_values, y=y_values, mode='lines+markers')) # lines+markers for points and lines
+    fig.update_layout(
+        xaxis_title=x,
+        yaxis_title=y,
+        plot_bgcolor="rgba(248,249,250,1)",
+        paper_bgcolor="rgba(248,249,250,1)",
+
+    )
+    return fig
+
+
 # Initialize figure_map
 dynamic_figure_map = {}
 
@@ -99,10 +139,19 @@ for row in rows:
                 'source': item.get('מקור', "U"),
                 'link': item.get('קישור', ""),
                 'notes': item.get('הערות', "")
-            }
+            } 
 
+            if item.get("גרף", "") == "bar":
             # Generating a figure (mocked for now, but can be adjusted to use actual data)
-            figure = generate_dynamic_figure(row, col)
+                figure = generate_dynamic_figure(row, col)
+            elif item.get("גרף", "") == "scatter":
+                figure = generate_scatter_plot(row, col)
+            elif item.get("גרף", "") == "line":
+                figure = generate_line_chart(row, col)
+            elif item.get("גרף", "") == "pie":
+                figure = generate_pie_chart(row, col)
+            else:
+                figure = generate_dynamic_figure(row, col)
 
             # Store in the map
             dynamic_figure_map[row][col] = {
