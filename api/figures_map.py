@@ -106,7 +106,7 @@ def generate_pie_chart(x, y, values):  # Add 'values' as a parameter
     values_counts = [random.randint(5, 30) for _ in labels] # Mock data
     fig = go.Figure(data=[go.Pie(labels=labels, values=values_counts, hole=.3)])
     fig.update_layout(  # ... (rest of layout code)
-         title=f"{x} - {y}",  # Use x and y in the title
+        #  title=f"{x} - {y}",  # Use x and y in the title
 
     )
     return fig

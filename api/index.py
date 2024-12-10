@@ -152,6 +152,7 @@ dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroun
                         id='colorscale-dropdown',
                         options=[
                             {'label': 'חם', 'value': 'Reds'},
+                            {"label": "רמזור", "value": "R"},
                             {'label': 'קר', 'value': 'Cividis'},
                             {'label': 'פלזמה', 'value': 'Plasma'},
                             {'label': 'כחול', 'value': 'Blues'},
@@ -285,11 +286,24 @@ def update_heatmap(selected_columns, value_range, selected_colorscale, screen_si
         if screen_size_data:
             width = screen_size_data.get('width', 1100)
             height = screen_size_data.get('height', 750)
-            adjusted_width = width * 0.75  # Adjust as needed
-            adjusted_height = height * 0.8
+            adjusted_width = width * 0.8  # Adjust as needed
+            adjusted_height = height * 0.85
         else:
             adjusted_width = 1100
             adjusted_height = 750
+
+        if selected_colorscale == "R":
+            selected_colorscale = [
+                [0.0, "rgb(116,195,124)"],   # Light Green
+                [0.2, "rgb(156,205,135)"],  # Intermediate Green
+                [0.3, "rgb(212,222,128)"],  # Dark Green transitioning to Yellow
+                [0.4, "rgb(242,230,131)"],  # Light Yellow
+                [0.5, "rgb(248,234,131)"],   # Intermediate Yellow
+                [0.7, "rgb(255,231,131)"],  # Dark Yellow transitioning to Red
+                [0.8, "rgb(249,141,113)"],  # Light Red
+                [0.9, "rgb(248,123,110)"],  # Intermediate Red
+                [1.0, "rgb(248,105,106)"],   # Dark Red
+            ]
 
         # Create figure
         fig = go.Figure(
@@ -300,8 +314,8 @@ def update_heatmap(selected_columns, value_range, selected_colorscale, screen_si
                 colorscale=selected_colorscale,
                 hoverongaps=False,
                 showscale=False,
-                ygap=2,
-                xgap=2,
+                ygap=3,
+                xgap=3,
                 colorbar=dict(title="ערך", titleside="right"),
                 hovertemplate='לחץ כאן עבור מידע נוסף בנושא <br> %{x} + %{y}<extra></extra>' # Updated hovertemplate
             ),
