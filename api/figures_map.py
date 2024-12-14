@@ -4,22 +4,14 @@ import json
 import re
 
 def extract_bracketed_values(text):
-    """Extracts the values inside square brackets from a string.
-    
-    Args:
-        text: The input string.
-
-    Returns:
-        A list of strings containing the bracketed values, or None if no brackets are found.
-    """
-    match = re.search(r"\[(.*?)\]", text)  # Non-greedy match to handle multiple brackets
+    match = re.search(r"\[(.*?)\]", text)
     if match:
         values_string = match.group(1)
         values = [value.strip() for value in values_string.split(",")]
         return values
     else:
-        return None  # Or return an empty list if you prefer: []
-
+        return None
+    
 
 def update_json_with_random(filepath):
     try:
@@ -155,48 +147,44 @@ def generate_line_chart(x, y, values):
 # Initialize figure_map
 dynamic_figure_map = {}
 
-# Populate figure_map with figures and metadata
+# Populate figure_map
 for row in rows:
     dynamic_figure_map[row] = {}
     for col in cols:
-        # Filter the data for the current row and col combination
+        # Filter data
         filtered_data = [
             item for item in data
             if item['תחום'] == row and item['מאפיין'] + ' ' + item['התנהגות / עמדות / ידע'] == col
         ]
-        
-        # If there's data for this combination, generate figure and metadata
+
         if filtered_data:
-            # Extracting data for metadata, with default values for missing data
-            item = filtered_data[0]  # Use the first matching item
+            item = filtered_data[0]
             metadata = {
                 'measurement_method': item.get('אופן חישוב המדד', "N/A"),
                 'survey_item': item.get('סעיף / היגד על', ""),
                 'source': item.get('מקור', "U"),
                 'link': item.get('קישור', ""),
                 'notes': item.get('הערות', "")
-            } 
+            }
 
-            values = extract_bracketed_values(item.get("פריט/היגד מקורי", ""))
+            # Extract values from 'תשובות אפשריות' if available, otherwise from 'פריט/היגד מקורי'
+            values = extract_bracketed_values(item.get("תשובות אפשריות", None)) or extract_bracketed_values(item.get("פריט/היגד מקורי", None))
 
-
-            if item.get("גרף", "") == "bar":
-            # Generating a figure (mocked for now, but can be adjusted to use actual data)
+            graph_type = item.get("גרף", "")  # Get the graph type from the data
+            if graph_type == "bar":
                 figure = generate_dynamic_figure(row, col, values)
-            elif item.get("גרף", "") == "scatter":
+            elif graph_type == "scatter":
                 figure = generate_scatter_plot(row, col, values)
-            elif item.get("גרף", "") == "line":
+            elif graph_type == "line":
                 figure = generate_line_chart(row, col, values)
-            elif item.get("גרף", "") == "pie":
+            elif graph_type == "pie":
                 figure = generate_pie_chart(row, col, values)
-            else:
+            else:  # Default to bar chart if "גרף" is missing or invalid
                 figure = generate_dynamic_figure(row, col, values)
 
-            # Store in the map
             dynamic_figure_map[row][col] = {
                 'figure': figure,
                 'metadata': metadata
             }
 
-# Replace original figure_map with dynamic_figure_map
 figure_map = dynamic_figure_map
