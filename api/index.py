@@ -481,23 +481,23 @@ def update_modal_content(clickData):
             enhanced_figure = figure
             enhanced_figure.update_layout(
                 template="simple_white",
-                margin=dict(l=50, r=50, t=40, b=50),
-                height=400,
-                font=dict(size=18, family="Arial, sans-serif"),
+                margin=dict(l=60, r=60, t=50, b=60),
+                height=450,
+                font=dict(size=22, family="Arial, sans-serif"),
                 hovermode="x unified",
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="white",
-                title_font=dict(size=20, family="Arial, sans-serif"),
+                title_font=dict(size=26, family="Arial, sans-serif"),
                 xaxis=dict(
-                    title_font=dict(size=18),
-                    tickfont=dict(size=16)
+                    title_font=dict(size=22),
+                    tickfont=dict(size=20)
                 ),
                 yaxis=dict(
-                    title_font=dict(size=18),
-                    tickfont=dict(size=16)
+                    title_font=dict(size=22),
+                    tickfont=dict(size=20)
                 ),
                 legend=dict(
-                    font=dict(size=16),
+                    font=dict(size=20),
                     orientation="h",
                     yanchor="bottom",
                     y=1.02,
@@ -634,10 +634,12 @@ def update_modal_content(clickData):
                     dbc.PopoverBody(
                         "המדדים מחושבים על בסיס נתוני סקרים לאומיים ומחקרים אקדמיים",
                         style={
-                            "fontSize": "1.1rem",
+                            "fontSize": "1.4rem",
                             "direction": "rtl", 
                             "textAlign": "right",
-                            "fontWeight": "500"
+                            "fontWeight": "600",
+                            "lineHeight": "1.6",
+                            "padding": "1rem"
                         }
                     ),
                     target="help-icon",
