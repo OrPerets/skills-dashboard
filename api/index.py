@@ -3,7 +3,7 @@ from dash import dcc, html, Dash
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
-import plotly.colors.qualitative
+import plotly.colors
 from flask import Flask
 import json
 import os
@@ -12,6 +12,12 @@ import logging
 
 # Import your figures_map if needed
 from .figures_map import figure_map  # Assuming this file contains your figure data
+
+# Define a safe color palette as fallback
+SAFE_COLORS = [
+    '#88CCEE', '#44AA99', '#117733', '#332288', '#DDCC77',
+    '#999933', '#CC6677', '#882255', '#AA4499', '#DDDDDD'
+]
 
 logging.basicConfig(level=logging.DEBUG)
 print("Starting Flask server...")
@@ -486,12 +492,19 @@ def update_modal_content(clickData):
             # Apply Safe color palette based on chart type
             if enhanced_figure.data:
                 trace = enhanced_figure.data[0]
+                
+                # Try to get Safe colors from plotly, fall back to our defined colors
+                try:
+                    safe_colors = plotly.colors.qualitative.Safe
+                except AttributeError:
+                    safe_colors = SAFE_COLORS
+                
                 if hasattr(trace, 'marker') and hasattr(trace.marker, 'color'):
                     # For bar charts and scatter plots
-                    trace.marker.color = plotly.colors.qualitative.Safe[0]
+                    trace.marker.color = safe_colors[0]
                 elif hasattr(trace, 'marker') and hasattr(trace.marker, 'colors'):
                     # For pie charts
-                    trace.marker.colors = plotly.colors.qualitative.Safe[:len(trace.labels) if hasattr(trace, 'labels') else 4]
+                    trace.marker.colors = safe_colors[:len(trace.labels) if hasattr(trace, 'labels') else 4]
 
             # Generate insight text based on data
             insight_text = f"💡 נתונים מעניינים עבור {col_key} ב{row_key}"
