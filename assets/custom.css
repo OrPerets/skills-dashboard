@@ -1,0 +1,293 @@
+/* Modal Animations and Styling */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal backdrop with blur effect */
+.modal-backdrop {
+    backdrop-filter: blur(4px) !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Modal content animation */
+.modal-content {
+    animation: slideUp 0.3s ease-out;
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+}
+
+/* Modal body animation */
+.modal-body {
+    animation: fadeIn 0.4s ease-out 0.1s both;
+}
+
+/* Custom modal header styling */
+.custom-modal-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 1.5rem 2rem 1rem 2rem;
+}
+
+/* Title styling */
+.modal-title-main {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+}
+
+.modal-title-sub {
+    font-size: 1.2rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+/* Badge styling */
+.metadata-badge {
+    font-size: 1rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 20px;
+    margin: 0.25rem 0.25rem 0.25rem 0;
+    font-weight: 600;
+    text-transform: none;
+}
+
+.badge-primary-custom {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.badge-info-custom {
+    background-color: #0dcaf0;
+    color: #000;
+}
+
+.badge-secondary-custom {
+    background-color: #6c757d;
+    color: white;
+}
+
+.badge-success-custom {
+    background-color: #198754;
+    color: white;
+}
+
+/* Survey item styling */
+.survey-item-text {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    background-color: #f8f9fa;
+    border-left: 4px solid #0d6efd;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Graph container styling */
+.graph-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+/* Insight text styling */
+.insight-text {
+    font-size: 1.25rem;
+    color: #2c3e50;
+    font-weight: 600;
+    line-height: 1.6;
+    padding: 1.25rem;
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1rem;
+}
+
+/* Button group styling */
+.action-buttons {
+    gap: 0.5rem;
+}
+
+.btn-outline-custom {
+    border-width: 2px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-custom:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Help icon styling */
+.help-icon {
+    color: #6c757d;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.help-icon:hover {
+    color: #0d6efd;
+}
+
+/* Enhanced visual effects */
+.modal-content {
+    overflow: hidden;
+}
+
+.custom-modal-header {
+    position: relative;
+}
+
+.custom-modal-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #dee2e6, transparent);
+}
+
+/* Enhanced button hover effects */
+.btn-outline-custom {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-outline-custom::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-outline-custom:hover::before {
+    left: 100%;
+}
+
+/* Loading state for graphs */
+.graph-container {
+    position: relative;
+    min-height: 400px;
+}
+
+.graph-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #f8f9fa 25%, transparent 25%, transparent 75%, #f8f9fa 75%);
+    background-size: 20px 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-title-main {
+        font-size: 1.5rem;
+    }
+    
+    .custom-modal-header {
+        padding: 1rem 1.5rem 0.75rem 1.5rem;
+    }
+    
+    .metadata-badge {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.625rem;
+    }
+    
+    .survey-item-text {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-outline-custom {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .modal-body {
+        padding: 0 1rem 1rem 1rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+    
+    .modal-title-main {
+        font-size: 1.25rem;
+    }
+    
+    .help-icon {
+        display: none;
+    }
+}
+
+/* RTL support */
+[dir="rtl"] .modal-title-main,
+[dir="rtl"] .modal-title-sub,
+[dir="rtl"] .survey-item-text,
+[dir="rtl"] .insight-text {
+    text-align: right;
+}
+
+[dir="rtl"] .metadata-badge {
+    margin: 0.25rem 0 0.25rem 0.25rem;
+}
+
+[dir="rtl"] .survey-item-text {
+    border-left: none;
+    border-right: 4px solid #0d6efd;
+    border-radius: 8px 0 0 8px;
+}
+
+[dir="rtl"] .insight-text {
+    border-left: none;
+    border-right: 4px solid #ffc107;
+    border-radius: 8px 0 0 8px;
+} 

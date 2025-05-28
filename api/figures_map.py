@@ -55,17 +55,15 @@ data = [
 ]
 
 # Define the fixed rows and columns
-rows = ['תעסוקה', 'בריאות', 'פיננסים', 'פנאי ובידור', 'למידה דיגיטאלית', 'מיצוי זכויות', 
-        'חברה ותקשורת', 'צרכנות', 'ביטחון ובטיחות', 'כללי']
-cols = ['ניהול מידע התנהגות', 'ניהול מידע עמדות', 'ניהול מידע ידע', 'תקשור התנהגות', 
-        'תקשור עמדות', 'תקשור ידע', 'עסקאות התנהגות', 'עסקאות עמדות', 'עסקאות ידע', 
-        'פתרון בעיות התנהגות', 'פתרון בעיות עמדות', 'פתרון בעיות ידע', 
-        'תחומי חיים כללי התנהגות', 'תחומי חיים כללי עמדות', 'תחומי חיים כללי ידע', 
-        'AI התנהגות', 'AI עמדות', 'AI ידע']
+rows = sorted(set(item['תחום'] for item in data))
+cols = sorted(
+    set(f"{item['מאפיין']} {item['התנהגות / עמדות / ידע']}".strip()
+        for item in data)
+)
 
 # Function to normalize keys to ensure consistency (e.g., trim spaces, unify cases)
-def normalize_key(key):
-    return tuple(str(x).strip() for x in key)
+def normalize(txt):
+    return re.sub(r"\s+", " ", txt).replace('\u200f', '').strip()
 
 # Function to generate a mock bar chart
 def generate_dynamic_figure(x, y, values):

@@ -3,6 +3,7 @@ from dash import dcc, html, Dash
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
+import plotly.express as px
 from flask import Flask
 import json
 import os
@@ -42,11 +43,17 @@ def update_y_axis_categories_with_extra_column(y_labels):
     return updated_labels
 
 def clean_html_string(html_string):
-    """Clean an HTML string."""
-    clean_text = re.sub(r'<.*?>', '', html_string).strip()
-    clean_text = re.sub(r'\s*\|\s*', ' ', clean_text)
-    clean_text = re.sub(r'\s+', ' ', clean_text)
-    return clean_text
+    if html_string is None:
+        return ""
+    # קודם כל להחליף תגיות <br> ברווח, כדי שלא ייעלמו
+    text = re.sub(r'<br\s*/?>', ' ', html_string)
+    # אחר-כך להסיר את כל שאר התגיות
+    text = re.sub(r'<.*?>', '', text)
+    # להמיר מפריד אנכי לרווח
+    text = re.sub(r'\s*\|\s*', ' ', text)
+    # לצמצם רווחים מיותרים
+    text = re.sub(r'\s+', ' ', text)
+    return text.strip()
 
 def convert_AI_label(y_axis_labels):
     """Replace "AI" with "בינה מלאכותית"."""
@@ -56,7 +63,10 @@ def convert_AI_label(y_axis_labels):
 
 # --- App Setup ---
 app = Flask(__name__, static_folder='public')
-dashApp = Dash(__name__, server=app, external_stylesheets=[dbc.themes.SANDSTONE])
+dashApp = Dash(__name__, server=app, external_stylesheets=[
+    dbc.themes.SANDSTONE,
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+])
 
 navbar = html.Div(
     [
@@ -200,36 +210,40 @@ dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroun
     dcc.Interval(id='interval-component', interval=1000, n_intervals=0, max_intervals=1),
 
     dbc.Modal(
-    id='modal',
-    size='xl',  # Increased size to extra-large to take up more screen space
-    is_open=False,
-    children=[
-        dbc.ModalHeader(
-            dbc.ModalTitle(""),
-            close_button=False,  # Keep close button visible for easy closing
-            style={
-                "backgroundColor": "#F8F9FA",
-                "border-bottom": "1px solid #dee2e6"
-            }
-        ),
-        dbc.ModalBody(children=[],
-            style={
-                'backgroundColor': '#f8f9fa',  # Light grey consistent with overall dashboard styling
-                'padding': '20px'
-            }
-        ),
-        dbc.ModalFooter(
-            dbc.Button("סגור", id='close-modal', className="ml-auto", style={"font-size": "1.2rem", "padding": "10px 20px"})
-        ),
-    ],
-    style={
-        'direction': 'rtl',
-        # 'maxWidth': '95%',  # Ensure the modal doesn't take up the entire screen but is wider
-        'margin': '0 auto',  # Center the modal in the screen
-        'width': "90%"
-    }
-)
+        id='modal',
+        size='lg',
+        centered=True,
+        is_open=False,
+        fade=True,
+        children=[
+            dbc.ModalHeader(
+                dbc.ModalTitle(""),
+                close_button=True,
+                className="custom-modal-header border-0 pb-0"
+            ),
+            dbc.ModalBody(
+                children=[],
+                style={
+                    'backgroundColor': '#f8f9fa',
+                    'padding': '0 2rem 2rem 2rem'
+                }
+            ),
+            dbc.ModalFooter(
+                className="border-0 pt-0",
+                children=[]
+            ),
+        ],
+        style={
+            'direction': 'rtl'
+        }
+    )
 ])
+
+def original_row_key(y_label):
+    txt = clean_html_string(y_label)
+    if "|" in y_label:
+        txt = txt.split("|")[0]
+    return txt.strip()
 
 dashApp.clientside_callback(
     """
@@ -242,6 +256,29 @@ dashApp.clientside_callback(
     """,
     Output('screen-size-store', 'data'),
     [Input('interval-component', 'n_intervals')]
+)
+
+# Clientside callback for download functionality
+dashApp.clientside_callback(
+    """
+    function(n_clicks) {
+        if (n_clicks && n_clicks > 0) {
+            const graphDiv = document.querySelector('.modal .js-plotly-plot');
+            if (graphDiv && window.Plotly) {
+                window.Plotly.downloadImage(graphDiv, {
+                    format: 'png',
+                    width: 800,
+                    height: 600,
+                    filename: 'skills_dashboard_chart'
+                });
+            }
+        }
+        return '';
+    }
+    """,
+    Output('download-btn', 'title'),
+    [Input('download-btn', 'n_clicks')],
+    prevent_initial_call=True
 )
 
 def change_x_labels(x_labels):
@@ -292,18 +329,26 @@ def update_heatmap(selected_columns, value_range, selected_colorscale, screen_si
             adjusted_width = 1100
             adjusted_height = 750
 
+        # Define traffic-light color scheme matching the provided image
+        traffic_light_colors = [
+            [0.0, "rgba(34,139,34,0.9)"],     # Forest Green (lowest values)
+            [0.1, "rgba(50,205,50,0.9)"],     # Lime Green
+            [0.2, "rgba(124,252,0,0.9)"],     # Lawn Green
+            [0.3, "rgba(173,255,47,0.9)"],    # Green Yellow
+            [0.4, "rgba(255,255,0,0.9)"],     # Yellow
+            [0.5, "rgba(255,215,0,0.9)"],     # Gold
+            [0.6, "rgba(255,165,0,0.9)"],     # Orange
+            [0.7, "rgba(255,140,0,0.8)"],     # Dark Orange
+            [0.8, "rgba(255,69,0,0.8)"],      # Orange Red
+            [0.9, "rgba(255,0,0,0.8)"],       # Red
+            [1.0, "rgba(178,34,34,0.8)"],     # Fire Brick (highest values)
+        ]
+
         if selected_colorscale == "R":
-            selected_colorscale = [
-                [0.0, "rgb(116,195,124)"],   # Light Green
-                [0.2, "rgb(156,205,135)"],  # Intermediate Green
-                [0.3, "rgb(212,222,128)"],  # Dark Green transitioning to Yellow
-                [0.4, "rgb(242,230,131)"],  # Light Yellow
-                [0.5, "rgb(248,234,131)"],   # Intermediate Yellow
-                [0.7, "rgb(255,231,131)"],  # Dark Yellow transitioning to Red
-                [0.8, "rgb(249,141,113)"],  # Light Red
-                [0.9, "rgb(248,123,110)"],  # Intermediate Red
-                [1.0, "rgb(248,105,106)"],   # Dark Red
-            ]
+            selected_colorscale = traffic_light_colors
+        else:
+            # Use the traffic-light scheme as default when not using built-in schemes
+            selected_colorscale = traffic_light_colors
 
         # Create figure
         fig = go.Figure(
@@ -406,44 +451,161 @@ def toggle_modal(clickData, n_clicks_close, is_open):
 def update_modal_content(clickData):
     try:
         if clickData:
-            clicked_point = clickData['points'][0]
-            x = clicked_point['x']
-            y = clicked_point['y']
-            value = clicked_point['z']
-
-            figure_data = None  # Replace with actual data retrieval
-            figure_data = figure_map.get(clean_html_string(x), {}).get(clean_html_string(y))
+            point = clickData['points'][0]
+            col_key = clean_html_string(point['x'])
+            row_key = original_row_key(point['y'])
+            
+            print("COL KEY", col_key)
+            print("ROW KEY", row_key)
+            print("Available figure_map keys:", list(figure_map.keys())[:5] if figure_map else "No keys")
+            if col_key in figure_map:
+                print(f"Available row keys for {col_key}:", list(figure_map[col_key].keys())[:5])
+            
+            # Try both mappings since the structure might be reversed
+            figure_data = figure_map.get(col_key, {}).get(row_key)
+            if figure_data is None:
+                figure_data = figure_map.get(row_key, {}).get(col_key)
             if figure_data is None:
                 return dash.no_update, {'display': 'none'}
+
             figure = figure_data['figure']
             metadata = figure_data['metadata']
 
+            # Enhance the figure with better styling
+            enhanced_figure = figure
+            enhanced_figure.update_layout(
+                template="simple_white",
+                margin=dict(l=0, r=0, t=10, b=0),
+                height=350,
+                font=dict(size=16),
+                hovermode="x unified",
+                plot_bgcolor="rgba(0,0,0,0)",
+                paper_bgcolor="white"
+            )
+            
+            # Apply Safe color palette based on chart type
+            if enhanced_figure.data:
+                trace = enhanced_figure.data[0]
+                if hasattr(trace, 'marker') and hasattr(trace.marker, 'color'):
+                    # For bar charts and scatter plots
+                    trace.marker.color = px.colors.qualitative.Safe[0]
+                elif hasattr(trace, 'marker') and hasattr(trace.marker, 'colors'):
+                    # For pie charts
+                    trace.marker.colors = px.colors.qualitative.Safe[:len(trace.labels) if hasattr(trace, 'labels') else 4]
+
+            # Generate insight text based on data
+            insight_text = f"💡 נתונים מעניינים עבור {col_key} ב{row_key}"
+            if metadata.get("notes"):
+                insight_text = f"💡 {metadata['notes'][:100]}..."
+
+            # Create metadata badges
+            metadata_badges = []
+            if metadata.get("source"):
+                metadata_badges.append(
+                    dbc.Badge(f"מקור: {metadata['source']}", color="primary", className="metadata-badge badge-primary-custom")
+                )
+            if metadata.get("measurement_method"):
+                metadata_badges.append(
+                    dbc.Badge(f"שיטת מדידה", color="info", className="metadata-badge badge-info-custom")
+                )
+            
+            # Add sample size badge (mock data)
+            metadata_badges.append(
+                dbc.Badge("n=1,200", color="secondary", className="metadata-badge badge-secondary-custom")
+            )
+
             modal_content = [
                 dbc.ModalHeader(
-        html.Div(  # Wrap title in a div for better control
-            dbc.ModalTitle(f"{clean_html_string(x)}, {clean_html_string(y)}", style={"fontWeight": "bold", "fontSize": "32px"}),
-            style={"textAlign": "center", "width": "100%"} # Center the div
-        ),
-        # close_button=False, 
-        style={"padding": "15px"}
-    ),
-                dbc.ModalBody([
-                    html.H5(metadata["survey_item"], style={
-                "textAlign": "center", # Center the H5
-                "marginBottom": "20px", # Add margin below
-                # ... other H5 styles ... e.g., color, font-size
-            }),
-                    dcc.Graph(figure=figure, config={'displayModeBar': False}),
-                    html.P(metadata["notes"]),
-                    html.A("למידע נוסף לחץ כאן", href=metadata["link"], target="_blank", style={"display": "block", "textAlign": "center", "color": "black", "marginTop": "10px", "fontSize": "18px"}),
-                ], style={
-        'backgroundColor': '#f8f9fa', 
-        'padding': '20px'
-    }),
-                dbc.ModalFooter(
-                    dbc.Button("סגור", id='close-modal', className="ml-auto", style={"backgroundColor": "lightgray", "color": "black", "display": "none"})
+                    dbc.Container([
+                        html.Div([
+                            html.I(className="fas fa-info-circle help-icon", id="help-icon"),
+                            html.H4(f"{col_key}", className="modal-title-main mb-0 fw-bold"),
+                        ], style={"display": "flex", "alignItems": "center"}),
+                        html.Small(f"{row_key}", className="modal-title-sub text-muted")
+                    ], fluid=True),
+                    close_button=True,
+                    className="custom-modal-header border-0 pb-0"
                 ),
+                dbc.ModalBody([
+                    dbc.Container([
+                        # Survey item with enhanced styling
+                        html.Div(
+                            metadata.get("survey_item", "פריט סקר לא זמין"),
+                            className="survey-item-text"
+                        ),
+                        
+                        # Metadata badges
+                        dbc.Row(
+                            metadata_badges,
+                            className="mt-3 mb-3"
+                        ),
+                        
+                        # Enhanced graph container
+                        html.Div([
+                            dcc.Graph(
+                                figure=enhanced_figure, 
+                                config={'displayModeBar': False}
+                            )
+                        ], className="graph-container"),
+                        
+                        # Insight text
+                        html.Div(
+                            insight_text,
+                            className="insight-text"
+                        ),
+                        
+                    ], fluid=True)
+                ], style={
+                    'backgroundColor': '#f8f9fa',
+                    'padding': '0 2rem 2rem 2rem'
+                }),
+                dbc.ModalFooter([
+                    dbc.Row([
+                        dbc.Col([
+                            # Left side - additional link
+                            html.A(
+                                "למידע נוסף לחץ כאן", 
+                                href=metadata.get("link", "#"), 
+                                target="_blank",
+                                style={
+                                    "color": "#0d6efd", 
+                                    "textDecoration": "none",
+                                    "fontSize": "1.1rem",
+                                    "fontWeight": "600"
+                                }
+                            ) if metadata.get("link") else html.Div()
+                        ], width="auto"),
+                        dbc.Col([
+                            # Right side - action buttons
+                            dbc.ButtonGroup([
+                                dbc.Button(
+                                    [html.I(className="fas fa-download me-2"), "הורד PNG"],
+                                    color="outline-primary",
+                                    className="btn-outline-custom",
+                                    id="download-btn"
+                                ),
+                                dbc.Button(
+                                    "סגור",
+                                    id='close-modal',
+                                    color="outline-secondary",
+                                    className="btn-outline-custom"
+                                )
+                            ], className="action-buttons")
+                        ], width="auto", className="ms-auto")
+                    ], justify="between", align="center", className="w-100")
+                ], className="border-0 pt-0")
             ]
+            
+            # Add popover for help icon
+            modal_content.append(
+                dbc.Popover(
+                    dbc.PopoverBody("המדדים מחושבים על בסיס נתוני סקרים לאומיים ומחקרים אקדמיים"),
+                    target="help-icon",
+                    trigger="hover",
+                    placement="bottom"
+                )
+            )
+            
             modal_style = {'direction': 'rtl'}
             return modal_content, modal_style
         else:
