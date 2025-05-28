@@ -481,12 +481,29 @@ def update_modal_content(clickData):
             enhanced_figure = figure
             enhanced_figure.update_layout(
                 template="simple_white",
-                margin=dict(l=0, r=0, t=10, b=0),
-                height=350,
-                font=dict(size=16),
+                margin=dict(l=50, r=50, t=40, b=50),
+                height=400,
+                font=dict(size=18, family="Arial, sans-serif"),
                 hovermode="x unified",
                 plot_bgcolor="rgba(0,0,0,0)",
-                paper_bgcolor="white"
+                paper_bgcolor="white",
+                title_font=dict(size=20, family="Arial, sans-serif"),
+                xaxis=dict(
+                    title_font=dict(size=18),
+                    tickfont=dict(size=16)
+                ),
+                yaxis=dict(
+                    title_font=dict(size=18),
+                    tickfont=dict(size=16)
+                ),
+                legend=dict(
+                    font=dict(size=16),
+                    orientation="h",
+                    yanchor="bottom",
+                    y=1.02,
+                    xanchor="right",
+                    x=1
+                )
             )
             
             # Apply Safe color palette based on chart type
@@ -532,10 +549,10 @@ def update_modal_content(clickData):
                     dbc.Container([
                         html.Div([
                             html.I(className="fas fa-info-circle help-icon", id="help-icon"),
-                            html.H4(f"{col_key}", className="modal-title-main mb-0 fw-bold"),
-                        ], style={"display": "flex", "alignItems": "center"}),
-                        html.Small(f"{row_key}", className="modal-title-sub text-muted")
-                    ], fluid=True),
+                            html.H3(f"{col_key}", className="modal-title-main mb-0 fw-bold"),
+                        ], style={"display": "flex", "alignItems": "center", "direction": "rtl"}),
+                        html.Div(f"{row_key}", className="modal-title-sub")
+                    ], fluid=True, style={"direction": "rtl"}),
                     close_button=True,
                     className="custom-modal-header border-0 pb-0"
                 ),
@@ -544,13 +561,15 @@ def update_modal_content(clickData):
                         # Survey item with enhanced styling
                         html.Div(
                             metadata.get("survey_item", "פריט סקר לא זמין"),
-                            className="survey-item-text"
+                            className="survey-item-text",
+                            style={"direction": "rtl", "textAlign": "right"}
                         ),
                         
                         # Metadata badges
-                        dbc.Row(
+                        html.Div(
                             metadata_badges,
-                            className="mt-3 mb-3"
+                            className="metadata-badges-container mt-3 mb-4",
+                            style={"direction": "rtl", "textAlign": "right"}
                         ),
                         
                         # Enhanced graph container
@@ -559,63 +578,72 @@ def update_modal_content(clickData):
                                 figure=enhanced_figure, 
                                 config={'displayModeBar': False}
                             )
-                        ], className="graph-container"),
+                        ], className="graph-container", style={"direction": "ltr"}),
                         
-                        # Insight text
-                        html.Div(
-                            insight_text,
-                            className="insight-text"
-                        ),
+                        # Insight text with better formatting
+                        html.Div([
+                            html.Div(
+                                insight_text,
+                                className="insight-text-content"
+                            )
+                        ], className="insight-text-container", style={"direction": "rtl", "textAlign": "right"}),
                         
-                    ], fluid=True)
+                    ], fluid=True, style={"direction": "rtl"})
                 ], style={
                     'backgroundColor': '#f8f9fa',
-                    'padding': '0 2rem 2rem 2rem'
+                    'padding': '0 2rem 2rem 2rem',
+                    'direction': 'rtl'
                 }),
                 dbc.ModalFooter([
-                    dbc.Row([
-                        dbc.Col([
-                            # Left side - additional link
+                    html.Div([
+                        # Right side (appears first in RTL) - action buttons
+                        dbc.ButtonGroup([
+                            dbc.Button(
+                                [html.I(className="fas fa-download me-2"), "הורד PNG"],
+                                color="outline-primary",
+                                className="btn-outline-custom",
+                                id="download-btn",
+                                size="lg"
+                            ),
+                            dbc.Button(
+                                "סגור",
+                                id='close-modal',
+                                color="outline-secondary", 
+                                className="btn-outline-custom",
+                                size="lg"
+                            )
+                        ], className="action-buttons mb-2"),
+                        
+                        # Left side (appears second in RTL) - additional link
+                        html.Div([
                             html.A(
                                 "למידע נוסף לחץ כאן", 
                                 href=metadata.get("link", "#"), 
                                 target="_blank",
-                                style={
-                                    "color": "#0d6efd", 
-                                    "textDecoration": "none",
-                                    "fontSize": "1.1rem",
-                                    "fontWeight": "600"
-                                }
+                                className="additional-info-link"
                             ) if metadata.get("link") else html.Div()
-                        ], width="auto"),
-                        dbc.Col([
-                            # Right side - action buttons
-                            dbc.ButtonGroup([
-                                dbc.Button(
-                                    [html.I(className="fas fa-download me-2"), "הורד PNG"],
-                                    color="outline-primary",
-                                    className="btn-outline-custom",
-                                    id="download-btn"
-                                ),
-                                dbc.Button(
-                                    "סגור",
-                                    id='close-modal',
-                                    color="outline-secondary",
-                                    className="btn-outline-custom"
-                                )
-                            ], className="action-buttons")
-                        ], width="auto", className="ms-auto")
-                    ], justify="between", align="center", className="w-100")
-                ], className="border-0 pt-0")
+                        ], style={"textAlign": "center", "marginTop": "10px"})
+                        
+                    ], style={"direction": "rtl", "textAlign": "center", "width": "100%"})
+                ], className="border-0 pt-0", style={"direction": "rtl"})
             ]
             
             # Add popover for help icon
             modal_content.append(
                 dbc.Popover(
-                    dbc.PopoverBody("המדדים מחושבים על בסיס נתוני סקרים לאומיים ומחקרים אקדמיים"),
+                    dbc.PopoverBody(
+                        "המדדים מחושבים על בסיס נתוני סקרים לאומיים ומחקרים אקדמיים",
+                        style={
+                            "fontSize": "1.1rem",
+                            "direction": "rtl", 
+                            "textAlign": "right",
+                            "fontWeight": "500"
+                        }
+                    ),
                     target="help-icon",
                     trigger="hover",
-                    placement="bottom"
+                    placement="bottom",
+                    style={"direction": "rtl"}
                 )
             )
             

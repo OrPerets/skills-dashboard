@@ -50,27 +50,37 @@
 
 /* Title styling */
 .modal-title-main {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #212529;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
     line-height: 1.2;
+    text-align: right;
 }
 
 .modal-title-sub {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #6c757d;
     font-weight: 500;
+    text-align: right;
+    margin-top: 0.5rem;
 }
 
 /* Badge styling */
 .metadata-badge {
-    font-size: 1rem;
-    padding: 0.6rem 0.9rem;
-    border-radius: 20px;
-    margin: 0.25rem 0.25rem 0.25rem 0;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 25px;
+    margin: 0.5rem 0.5rem 0.5rem 0;
     font-weight: 600;
     text-transform: none;
+    display: inline-block;
+}
+
+/* Metadata badges container */
+.metadata-badges-container {
+    text-align: right;
+    direction: rtl;
 }
 
 .badge-primary-custom {
@@ -95,63 +105,87 @@
 
 /* Survey item styling */
 .survey-item-text {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: #2c3e50;
     font-weight: 600;
-    line-height: 1.5;
+    line-height: 1.6;
     margin-bottom: 1.5rem;
-    padding: 1.25rem;
+    padding: 1.5rem;
     background-color: #f8f9fa;
-    border-left: 4px solid #0d6efd;
-    border-radius: 0 8px 8px 0;
+    border-right: 5px solid #0d6efd;
+    border-radius: 8px 0 0 8px;
+    text-align: right;
+    direction: rtl;
 }
 
 /* Graph container styling */
 .graph-container {
     background-color: white;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
 }
 
 /* Insight text styling */
-.insight-text {
-    font-size: 1.25rem;
+.insight-text-container {
+    margin-bottom: 1.5rem;
+}
+
+.insight-text-content {
+    font-size: 1.4rem;
     color: #2c3e50;
     font-weight: 600;
-    line-height: 1.6;
-    padding: 1.25rem;
+    line-height: 1.7;
+    padding: 1.5rem;
     background-color: #fff3cd;
-    border-left: 4px solid #ffc107;
-    border-radius: 0 8px 8px 0;
-    margin-bottom: 1rem;
+    border-right: 5px solid #ffc107;
+    border-radius: 8px 0 0 8px;
+    text-align: right;
+    direction: rtl;
 }
 
 /* Button group styling */
 .action-buttons {
-    gap: 0.5rem;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .btn-outline-custom {
     border-width: 2px;
     font-weight: 600;
-    font-size: 1.1rem;
-    padding: 0.7rem 1.5rem;
-    border-radius: 8px;
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    border-radius: 10px;
     transition: all 0.2s ease;
+    min-width: 120px;
 }
 
 .btn-outline-custom:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Additional info link styling */
+.additional-info-link {
+    color: #0d6efd;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.additional-info-link:hover {
+    color: #0851d4;
+    text-decoration: underline;
 }
 
 /* Help icon styling */
 .help-icon {
     color: #6c757d;
     cursor: pointer;
-    margin-right: 0.5rem;
+    margin-left: 0.75rem;
+    font-size: 1.2rem;
     transition: color 0.2s ease;
 }
 
@@ -222,49 +256,101 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .modal-title-main {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
     
+    .modal-title-sub {
+        font-size: 1.2rem;
+    }
+
     .custom-modal-header {
-        padding: 1rem 1.5rem 0.75rem 1.5rem;
+        padding: 1rem 1.5rem 0.5rem 1.5rem;
     }
-    
+
     .metadata-badge {
-        font-size: 0.75rem;
-        padding: 0.375rem 0.625rem;
-    }
-    
-    .survey-item-text {
         font-size: 1rem;
-        padding: 0.75rem;
+        padding: 0.6rem 1rem;
+        margin: 0.3rem 0.3rem 0.3rem 0;
+    }
+
+    .survey-item-text {
+        font-size: 1.3rem;
+        padding: 1.2rem;
     }
     
+    .insight-text-content {
+        font-size: 1.2rem;
+        padding: 1.2rem;
+    }
+
     .action-buttons {
         flex-direction: column;
-        width: 100%;
+        gap: 0.5rem;
     }
-    
+
     .btn-outline-custom {
+        font-size: 1.1rem;
+        padding: 0.8rem 1.5rem;
         width: 100%;
-        margin-bottom: 0.5rem;
     }
     
+    .additional-info-link {
+        font-size: 1.1rem;
+    }
+
     .modal-body {
         padding: 0 1rem 1rem 1rem !important;
+    }
+    
+    .graph-container {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
     }
 }
 
 @media (max-width: 576px) {
     .modal-dialog {
         margin: 0.5rem;
+        max-width: calc(100% - 1rem);
     }
-    
+
     .modal-title-main {
-        font-size: 1.25rem;
+        font-size: 1.8rem;
     }
     
+    .modal-title-sub {
+        font-size: 1.1rem;
+    }
+
     .help-icon {
-        display: none;
+        margin-left: 0.5rem;
+        font-size: 1rem;
+    }
+    
+    .survey-item-text {
+        font-size: 1.2rem;
+        padding: 1rem;
+        line-height: 1.5;
+    }
+    
+    .insight-text-content {
+        font-size: 1.1rem;
+        padding: 1rem;
+        line-height: 1.6;
+    }
+    
+    .metadata-badge {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.8rem;
+    }
+    
+    .btn-outline-custom {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem;
+    }
+    
+    .additional-info-link {
+        font-size: 1rem;
     }
 }
 
