@@ -3,7 +3,7 @@ from dash import dcc, html, Dash
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
-import plotly.express as px
+import plotly.colors.qualitative as colors
 from flask import Flask
 import json
 import os
@@ -488,10 +488,10 @@ def update_modal_content(clickData):
                 trace = enhanced_figure.data[0]
                 if hasattr(trace, 'marker') and hasattr(trace.marker, 'color'):
                     # For bar charts and scatter plots
-                    trace.marker.color = px.colors.qualitative.Safe[0]
+                    trace.marker.color = colors.Safe[0]
                 elif hasattr(trace, 'marker') and hasattr(trace.marker, 'colors'):
                     # For pie charts
-                    trace.marker.colors = px.colors.qualitative.Safe[:len(trace.labels) if hasattr(trace, 'labels') else 4]
+                    trace.marker.colors = colors.Safe[:len(trace.labels) if hasattr(trace, 'labels') else 4]
 
             # Generate insight text based on data
             insight_text = f"💡 נתונים מעניינים עבור {col_key} ב{row_key}"
