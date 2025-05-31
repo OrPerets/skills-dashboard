@@ -451,211 +451,285 @@ def toggle_modal(clickData, n_clicks_close, is_open):
 @dashApp.callback(
     [Output('modal', 'children'),
      Output('modal', 'style')],
-    Input('heatmap', 'clickData'),
-    prevent_initial_call=True
+    [Input('heatmap', 'clickData'),
+     Input('modal', 'is_open')],
+    prevent_initial_call=False
 )
-def update_modal_content(clickData):
+def update_modal_content(clickData, is_open):
+    """Update modal content when heatmap is clicked or modal opens"""
+    print(f"DEBUG: update_modal_content called with clickData={clickData}, is_open={is_open}")
+    
+    ctx = dash.callback_context
+    modal_style = {'direction': 'rtl'}
+    
+    # Add debugging for context
+    if ctx.triggered:
+        print(f"DEBUG: Triggered by: {ctx.triggered}")
+    
+    # Check if this was triggered by a heatmap click
+    heatmap_clicked = False
+    if ctx.triggered:
+        for trigger in ctx.triggered:
+            if trigger['prop_id'] == 'heatmap.clickData' and clickData:
+                heatmap_clicked = True
+                break
+    
+    # If no click data and modal is not open, return empty content
+    if not clickData and not is_open:
+        print(f"DEBUG: Returning empty content. No clickData and modal not open.")
+        return [], modal_style
+    
+    # If modal is open OR we have a fresh heatmap click, generate content
+    if is_open or heatmap_clicked:
+        print("DEBUG: About to call update_modal_content_helper")
+        try:
+            # Generate content using helper function
+            modal_content = update_modal_content_helper(clickData)
+            print(f"DEBUG: Helper returned content length: {len(modal_content)}")
+            return modal_content, modal_style
+        except Exception as e:
+            print(f"DEBUG: Exception in update_modal_content: {e}")
+            import traceback
+            traceback.print_exc()
+            return [], modal_style
+    
+    print(f"DEBUG: Returning empty content. is_open={is_open}, heatmap_clicked={heatmap_clicked}")
+    return [], modal_style
+
+def update_modal_content_helper(clickData):
+    """Helper function to generate modal content from click data"""
+    print("DEBUG: Helper function called")
     try:
-        if clickData:
-            point = clickData['points'][0]
-            col_key = clean_html_string(point['x'])
-            row_key = original_row_key(point['y'])
+        if not clickData:
+            print("DEBUG: No clickData provided")
+            return []
+        
+        print(f"DEBUG: clickData structure: {clickData}")
+        point = clickData['points'][0]
+        print(f"DEBUG: point data: {point}")
+        print(f"DEBUG: Raw x value: '{point['x']}'")
+        print(f"DEBUG: Raw y value: '{point['y']}'")
+        print("!!!", figure_map.keys())
+        
+        col_key = clean_html_string(point['x'])
+        row_key = original_row_key(point['y'])
+        
+        print(f"DEBUG: Processed col_key: '{col_key}'")
+        print(f"DEBUG: Processed row_key: '{row_key}'")
+        print("DEBUG: Available figure_map keys:", list(figure_map.keys())[:10] if figure_map else "No keys")
+        if col_key in figure_map:
+            print(f"DEBUG: Available row keys for '{col_key}':", list(figure_map[col_key].keys())[:10])
+        else:
+            print(f"DEBUG: '{col_key}' not found in figure_map keys")
             
-            print("COL KEY", col_key)
-            print("ROW KEY", row_key)
-            print("Available figure_map keys:", list(figure_map.keys())[:5] if figure_map else "No keys")
-            if col_key in figure_map:
-                print(f"Available row keys for {col_key}:", list(figure_map[col_key].keys())[:5])
-            
-            # Try both mappings since the structure might be reversed
-            figure_data = figure_map.get(col_key, {}).get(row_key)
-            if figure_data is None:
-                figure_data = figure_map.get(row_key, {}).get(col_key)
-            if figure_data is None:
-                return dash.no_update, {'display': 'none'}
-
-            figure = figure_data['figure']
-            metadata = figure_data['metadata']
-
-            # Enhance the figure with better styling
-            enhanced_figure = figure
-            enhanced_figure.update_layout(
-                template="simple_white",
-                margin=dict(l=60, r=60, t=50, b=60),
-                height=450,
-                font=dict(size=22, family="Arial, sans-serif"),
-                hovermode="x unified",
-                plot_bgcolor="rgba(0,0,0,0)",
-                paper_bgcolor="white",
-                title_font=dict(size=26, family="Arial, sans-serif"),
-                xaxis=dict(
-                    title_font=dict(size=22),
-                    tickfont=dict(size=20)
-                ),
-                yaxis=dict(
-                    title_font=dict(size=22),
-                    tickfont=dict(size=20)
-                ),
-                legend=dict(
-                    font=dict(size=20),
-                    orientation="h",
-                    yanchor="bottom",
-                    y=1.02,
-                    xanchor="right",
-                    x=1
-                )
-            )
-            
-            # Apply Safe color palette based on chart type
-            if enhanced_figure.data:
-                trace = enhanced_figure.data[0]
-                
-                # Try to get Safe colors from plotly, fall back to our defined colors
-                try:
-                    safe_colors = plotly.colors.qualitative.Safe
-                except AttributeError:
-                    safe_colors = SAFE_COLORS
-                
-                if hasattr(trace, 'marker') and hasattr(trace.marker, 'color'):
-                    # For bar charts and scatter plots
-                    trace.marker.color = safe_colors[0]
-                elif hasattr(trace, 'marker') and hasattr(trace.marker, 'colors'):
-                    # For pie charts
-                    trace.marker.colors = safe_colors[:len(trace.labels) if hasattr(trace, 'labels') else 4]
-
-            # Generate insight text based on data
-            insight_text = f"💡 נתונים מעניינים עבור {col_key} ב{row_key}"
-            if metadata.get("notes"):
-                insight_text = f"💡 {metadata['notes'][:100]}..."
-
-            # Create metadata badges
-            metadata_badges = []
-            if metadata.get("source"):
-                metadata_badges.append(
-                    dbc.Badge(f"מקור: {metadata['source']}", color="primary", className="metadata-badge badge-primary-custom")
-                )
-            if metadata.get("measurement_method"):
-                metadata_badges.append(
-                    dbc.Badge(f"שיטת מדידה", color="info", className="metadata-badge badge-info-custom")
-                )
-            
-            # Add sample size badge (mock data)
-            metadata_badges.append(
-                dbc.Badge("n=1,200", color="secondary", className="metadata-badge badge-secondary-custom")
-            )
-
-            modal_content = [
+        # Also check if row_key is available as a top-level key
+        if row_key in figure_map:
+            print(f"DEBUG: Available col keys for '{row_key}':", list(figure_map[row_key].keys())[:10])
+        
+        # Try both mappings since the structure might be reversed
+        figure_data = figure_map.get(col_key, {}).get(row_key)
+        if figure_data is None:
+            figure_data = figure_map.get(row_key, {}).get(col_key)
+        if figure_data is None:
+            # Return a basic modal content when no figure data is found
+            return [
                 dbc.ModalHeader(
                     dbc.Container([
-                        html.Div([
-                            html.I(className="fas fa-info-circle help-icon", id="help-icon"),
-                            html.H3(f"{col_key}", className="modal-title-main mb-0 fw-bold"),
-                        ], style={"display": "flex", "alignItems": "center", "direction": "rtl"}),
+                        html.H3(f"מידע עבור {col_key}", className="modal-title-main mb-0 fw-bold"),
                         html.Div(f"{row_key}", className="modal-title-sub")
                     ], fluid=True, style={"direction": "rtl"}),
                     close_button=True,
                     className="custom-modal-header border-0 pb-0"
                 ),
                 dbc.ModalBody([
-                    dbc.Container([
-                        # Survey item with enhanced styling
-                        html.Div(
-                            metadata.get("survey_item", "פריט סקר לא זמין"),
-                            className="survey-item-text",
-                            style={"direction": "rtl", "textAlign": "right"}
-                        ),
-                        
-                        # Metadata badges
-                        html.Div(
-                            metadata_badges,
-                            className="metadata-badges-container mt-3 mb-4",
-                            style={"direction": "rtl", "textAlign": "right"}
-                        ),
-                        
-                        # Enhanced graph container
-                        html.Div([
-                            dcc.Graph(
-                                figure=enhanced_figure, 
-                                config={'displayModeBar': False}
-                            )
-                        ], className="graph-container", style={"direction": "ltr"}),
-                        
-                        # Insight text with better formatting
-                        html.Div([
-                            html.Div(
-                                insight_text,
-                                className="insight-text-content"
-                            )
-                        ], className="insight-text-container", style={"direction": "rtl", "textAlign": "right"}),
-                        
-                    ], fluid=True, style={"direction": "rtl"})
-                ], style={
-                    'backgroundColor': '#f8f9fa',
-                    'padding': '0 2rem 2rem 2rem',
-                    'direction': 'rtl'
-                }),
+                    html.Div("נתונים לא זמינים עבור שילוב זה", 
+                             style={"direction": "rtl", "textAlign": "center", "padding": "50px"})
+                ], style={'backgroundColor': '#f8f9fa', 'direction': 'rtl'}),
                 dbc.ModalFooter([
-                    html.Div([
-                        # Right side (appears first in RTL) - action buttons
-                        dbc.ButtonGroup([
-                            dbc.Button(
-                                [html.I(className="fas fa-download me-2"), "הורד PNG"],
-                                color="outline-primary",
-                                className="btn-outline-custom",
-                                id="download-btn",
-                                size="lg"
-                            ),
-                            dbc.Button(
-                                "סגור",
-                                id='close-modal',
-                                color="outline-secondary", 
-                                className="btn-outline-custom",
-                                size="lg"
-                            )
-                        ], className="action-buttons mb-2"),
-                        
-                        # Left side (appears second in RTL) - additional link
-                        html.Div([
-                            html.A(
-                                "למידע נוסף לחץ כאן", 
-                                href=metadata.get("link", "#"), 
-                                target="_blank",
-                                className="additional-info-link"
-                            ) if metadata.get("link") else html.Div()
-                        ], style={"textAlign": "center", "marginTop": "10px"})
-                        
-                    ], style={"direction": "rtl", "textAlign": "center", "width": "100%"})
+                    dbc.Button("סגור", id='close-modal', color="outline-secondary", size="lg")
                 ], className="border-0 pt-0", style={"direction": "rtl"})
             ]
-            
-            # Add popover for help icon
-            modal_content.append(
-                dbc.Popover(
-                    dbc.PopoverBody(
-                        "המדדים מחושבים על בסיס נתוני סקרים לאומיים ומחקרים אקדמיים",
-                        style={
-                            "fontSize": "1.4rem",
-                            "direction": "rtl", 
-                            "textAlign": "right",
-                            "fontWeight": "600",
-                            "lineHeight": "1.6",
-                            "padding": "1rem"
-                        }
-                    ),
-                    target="help-icon",
-                    trigger="hover",
-                    placement="bottom",
-                    style={"direction": "rtl"}
-                )
+
+        figure = figure_data['figure']
+        metadata = figure_data['metadata']
+
+        # Enhance the figure with better styling
+        enhanced_figure = figure
+        enhanced_figure.update_layout(
+            template="simple_white",
+            margin=dict(l=60, r=60, t=50, b=60),
+            height=450,
+            font=dict(size=22, family="Arial, sans-serif"),
+            hovermode="x unified",
+            plot_bgcolor="rgba(0,0,0,0)",
+            paper_bgcolor="white",
+            title_font=dict(size=26, family="Arial, sans-serif"),
+            xaxis=dict(
+                title_font=dict(size=22),
+                tickfont=dict(size=20)
+            ),
+            yaxis=dict(
+                title_font=dict(size=22),
+                tickfont=dict(size=20)
+            ),
+            legend=dict(
+                font=dict(size=20),
+                orientation="h",
+                yanchor="bottom",
+                y=1.02,
+                xanchor="right",
+                x=1
             )
+        )
+        
+        # Apply Safe color palette based on chart type
+        if enhanced_figure.data:
+            trace = enhanced_figure.data[0]
             
-            modal_style = {'direction': 'rtl'}
-            return modal_content, modal_style
-        else:
-            return [], {}
+            # Try to get Safe colors from plotly, fall back to our defined colors
+            try:
+                safe_colors = plotly.colors.qualitative.Safe
+            except AttributeError:
+                safe_colors = SAFE_COLORS
+            
+            if hasattr(trace, 'marker') and hasattr(trace.marker, 'color'):
+                # For bar charts and scatter plots
+                trace.marker.color = safe_colors[0]
+            elif hasattr(trace, 'marker') and hasattr(trace.marker, 'colors'):
+                # For pie charts
+                trace.marker.colors = safe_colors[:len(trace.labels) if hasattr(trace, 'labels') else 4]
+
+        # Generate insight text based on data
+        insight_text = f"💡 נתונים מעניינים עבור {col_key} ב{row_key}"
+        if metadata.get("notes"):
+            insight_text = f"💡 {metadata['notes'][:100]}..."
+
+        # Create metadata badges
+        metadata_badges = []
+        if metadata.get("source"):
+            metadata_badges.append(
+                dbc.Badge(f"מקור: {metadata['source']}", color="primary", className="metadata-badge badge-primary-custom")
+            )
+        if metadata.get("measurement_method"):
+            metadata_badges.append(
+                dbc.Badge(f"שיטת מדידה", color="info", className="metadata-badge badge-info-custom")
+            )
+        
+        # Add sample size badge (mock data)
+        metadata_badges.append(
+            dbc.Badge("n=1,200", color="secondary", className="metadata-badge badge-secondary-custom")
+        )
+
+        modal_content = [
+            dbc.ModalHeader(
+                dbc.Container([
+                    html.Div([
+                        html.I(className="fas fa-info-circle help-icon", id="help-icon"),
+                        html.H3(f"{col_key}", className="modal-title-main mb-0 fw-bold"),
+                    ], style={"display": "flex", "alignItems": "center", "direction": "rtl"}),
+                    html.Div(f"{row_key}", className="modal-title-sub")
+                ], fluid=True, style={"direction": "rtl"}),
+                close_button=True,
+                className="custom-modal-header border-0 pb-0"
+            ),
+            dbc.ModalBody([
+                dbc.Container([
+                    # Survey item with enhanced styling
+                    html.Div(
+                        metadata.get("survey_item", "פריט סקר לא זמין"),
+                        className="survey-item-text",
+                        style={"direction": "rtl", "textAlign": "right"}
+                    ),
+                    
+                    # Metadata badges
+                    html.Div(
+                        metadata_badges,
+                        className="metadata-badges-container mt-3 mb-4",
+                        style={"direction": "rtl", "textAlign": "right"}
+                    ),
+                    
+                    # Enhanced graph container
+                    html.Div([
+                        dcc.Graph(
+                            figure=enhanced_figure, 
+                            config={'displayModeBar': False}
+                        )
+                    ], className="graph-container", style={"direction": "ltr"}),
+                    
+                    # Insight text with better formatting
+                    html.Div([
+                        html.Div(
+                            insight_text,
+                            className="insight-text-content"
+                        )
+                    ], className="insight-text-container", style={"direction": "rtl", "textAlign": "right"}),
+                    
+                ], fluid=True, style={"direction": "rtl"})
+            ], style={
+                'backgroundColor': '#f8f9fa',
+                'padding': '0 2rem 2rem 2rem',
+                'direction': 'rtl'
+            }),
+            dbc.ModalFooter([
+                html.Div([
+                    # Right side (appears first in RTL) - action buttons
+                    dbc.ButtonGroup([
+                        dbc.Button(
+                            [html.I(className="fas fa-download me-2"), "הורד PNG"],
+                            color="outline-primary",
+                            className="btn-outline-custom",
+                            id="download-btn",
+                            size="lg"
+                        ),
+                        dbc.Button(
+                            "סגור",
+                            id='close-modal',
+                            color="outline-secondary", 
+                            className="btn-outline-custom",
+                            size="lg"
+                        )
+                    ], className="action-buttons mb-2"),
+                    
+                    # Left side (appears second in RTL) - additional link
+                    html.Div([
+                        html.A(
+                            "למידע נוסף לחץ כאן", 
+                            href=metadata.get("link", "#"), 
+                            target="_blank",
+                            className="additional-info-link"
+                        ) if metadata.get("link") else html.Div()
+                    ], style={"textAlign": "center", "marginTop": "10px"})
+                    
+                ], style={"direction": "rtl", "textAlign": "center", "width": "100%"})
+            ], className="border-0 pt-0", style={"direction": "rtl"})
+        ]
+        
+        # Add popover for help icon
+        modal_content.append(
+            dbc.Popover(
+                dbc.PopoverBody(
+                    "המדדים מחושבים על בסיס נתוני סקרים לאומיים ומחקרים אקדמיים",
+                    style={
+                        "fontSize": "1.4rem",
+                        "direction": "rtl", 
+                        "textAlign": "right",
+                        "fontWeight": "600",
+                        "lineHeight": "1.6",
+                        "padding": "1rem"
+                    }
+                ),
+                target="help-icon",
+                trigger="hover",
+                placement="bottom",
+                style={"direction": "rtl"}
+            )
+        )
+        
+        return modal_content
+        
     except Exception as e:
-        logging.error(f"Error updating modal content: {e}")
-        return [], {}
+        logging.error(f"Error generating modal content: {e}")
+        return []
 
 @dashApp.callback(
     Output('heatmap-size', 'data'),
