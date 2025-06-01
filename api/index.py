@@ -145,6 +145,7 @@ dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroun
                         labelStyle={'display': 'block', 'margin-left': '10px'}
                     ),
                     dbc.Button("בחר הכל / בטל הכל", id='select-all-button', n_clicks=0, color='primary', style={'width': '100%', 'margin-top': '10px'}),
+                    dbc.Button("בדיקת מודל", id='test-modal-button', n_clicks=0, color='secondary', style={'width': '100%', 'margin-top': '10px'}),
                 ]),
             ], style={'margin-bottom': '20px'}),
             dbc.Card([
@@ -188,22 +189,37 @@ dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroun
 
         # --- Main Content Area ---
         dbc.Col([
+            # Click feedback area
+            dcc.Store(id='click-feedback-store'),
+            html.Div(id='click-feedback', style={'display': 'none'}),
+            
             dbc.Card([
                 # dbc.CardHeader(html.H5("מפת חום", className="card-title")),
                 dbc.CardBody([
-                    dcc.Loading(
-                        id="loading-heatmap",
-                        type="default",
-                        children=dcc.Graph(
-                            id='heatmap', 
-                            config={
-                                'displayModeBar': False, 
-                                'modeBarButtonsToRemove': ['select2d', 'lasso2d'],
-                                'scrollZoom': True
-                            },
-                            style={'width': '100%', 'height': '100%'}
+                    html.Div([
+                        dcc.Loading(
+                            id="loading-heatmap",
+                            type="default",
+                            children=dcc.Graph(
+                                id='heatmap', 
+                                config={
+                                    'displayModeBar': False, 
+                                    'modeBarButtonsToRemove': ['select2d', 'lasso2d'],
+                                    'scrollZoom': True,
+                                    'doubleClick': 'reset',
+                                    'showTips': False,
+                                    'toImageButtonOptions': {
+                                        'format': 'png',
+                                        'filename': 'heatmap',
+                                        'height': 500,
+                                        'width': 700,
+                                        'scale': 1
+                                    }
+                                },
+                                style={'width': '100%', 'height': '100%', 'cursor': 'pointer'}
+                            ),
                         ),
-                    ),
+                    ], className="heatmap-container"),
                 ]),
             ], style={'margin-top': '20px', 'height': "800px"}),
         ], xs=12, sm=12, md=9, lg=10),
@@ -212,6 +228,8 @@ dashApp.layout = dbc.Container(fluid=True, style={'direction': 'rtl', 'backgroun
     # Hidden components for interactivity
     dcc.Store(id='screen-size-store'),
     dcc.Store(id='selected-cell-data'),
+    dcc.Store(id='last-click-time', data=0),  # For debouncing
+    dcc.Store(id='modal-click-data'),  # Store click data separately
     # dcc.Store(id='heatmap-size', data={'width': 1400, 'height': 750}),
     dcc.Interval(id='interval-component', interval=1000, n_intervals=0, max_intervals=1),
 
@@ -263,6 +281,42 @@ dashApp.clientside_callback(
     Output('screen-size-store', 'data'),
     [Input('interval-component', 'n_intervals')]
 )
+
+# Enhanced click feedback clientside callback (temporarily disabled for debugging)
+# dashApp.clientside_callback(
+#     """
+#     function(clickData, last_click_time) {
+#         if (clickData) {
+#             const currentTime = Date.now();
+#             
+#             // Debouncing: ignore clicks that are too close together (less than 300ms)
+#             if (currentTime - last_click_time < 300) {
+#                 return window.dash_clientside.no_update;
+#             }
+#             
+#             // Visual feedback for click
+#             const heatmapDiv = document.querySelector('#heatmap');
+#             if (heatmapDiv) {
+#                 heatmapDiv.style.opacity = '0.8';
+#                 heatmapDiv.style.transform = 'scale(0.98)';
+#                 heatmapDiv.style.transition = 'all 0.15s ease';
+#                 
+#                 setTimeout(() => {
+#                     heatmapDiv.style.opacity = '1';
+#                     heatmapDiv.style.transform = 'scale(1)';
+#                 }, 150);
+#             }
+#             
+#             return currentTime;
+#         }
+#         return window.dash_clientside.no_update;
+#     }
+#     """,
+#     Output('last-click-time', 'data'),
+#     [Input('heatmap', 'clickData')],
+#     [State('last-click-time', 'data')],
+#     prevent_initial_call=True
+# )
 
 # Clientside callback for download functionality
 dashApp.clientside_callback(
@@ -356,7 +410,7 @@ def update_heatmap(selected_columns, value_range, selected_colorscale, screen_si
             # Use the traffic-light scheme as default when not using built-in schemes
             selected_colorscale = traffic_light_colors
 
-        # Create figure
+        # Create figure with enhanced click detection
         fig = go.Figure(
             data=go.Heatmap(
                 z=z_values_filtered,
@@ -365,14 +419,23 @@ def update_heatmap(selected_columns, value_range, selected_colorscale, screen_si
                 colorscale=selected_colorscale,
                 hoverongaps=False,
                 showscale=False,
-                ygap=3,
-                xgap=3,
+                ygap=1.5,
+                xgap=1.5,
                 colorbar=dict(title="ערך", titleside="right"),
-                hovertemplate='לחץ כאן עבור מידע נוסף בנושא <br> %{x} + %{y}<extra></extra>' # Updated hovertemplate
+                hovertemplate='<b>לחץ כאן עבור מידע נוסף</b><br>%{x}<br>%{y}<br>ערך: %{z}<extra></extra>',
+                # Enhanced hover and click behavior
+                hoverinfo='text',
+                hoverlabel=dict(
+                    bgcolor="white",
+                    bordercolor="black",
+                    font_size=16,
+                    font_family="Arial",
+                    namelength=-1
+                )
             ),
         )
 
-        # Update layout
+        # Update layout with enhanced click detection
         fig.update_layout(
             font=dict(size=14, family="Arial, sans-serif"),
             xaxis=dict(
@@ -394,11 +457,13 @@ def update_heatmap(selected_columns, value_range, selected_colorscale, screen_si
             width=adjusted_width,
             margin=dict(l=10, r=10, t=10, b=10),
             hoverlabel=dict(
-        bgcolor="white",       # Background color of the hover label
-        bordercolor="black",   # Border color of the hover label
-        font_size=16,       # Font size of the hover label
-        font_family="Arial",  # Font family of the hover label
-    )
+                bgcolor="white",       # Background color of the hover label
+                bordercolor="black",   # Border color of the hover label
+                font_size=16,       # Font size of the hover label
+                font_family="Arial",  # Font family of the hover label
+            ),
+            # Optimize for clicks
+            dragmode=False
         )
 
         return fig
@@ -432,99 +497,115 @@ def update_checklist_options(n_clicks, current_options):
         logging.error(f"Error updating checklist options: {e}")
         return [], []
 
+# Simplified modal toggle - only handle opening
 @dashApp.callback(
-    Output('modal', 'is_open'),
+    [Output('modal', 'is_open'),
+     Output('modal-click-data', 'data')],
     [Input('heatmap', 'clickData'),
-     Input('close-modal', 'n_clicks')],
+     Input('test-modal-button', 'n_clicks')],
     [State('modal', 'is_open')],
+    prevent_initial_call=True
 )
-def toggle_modal(clickData, n_clicks_close, is_open):
+def toggle_modal(clickData, test_clicks, is_open):
+    """Simplified modal toggle with better click handling"""
     ctx = dash.callback_context
-    if ctx.triggered:
-        prop_id = ctx.triggered[0]['prop_id']
-        if 'heatmap' in prop_id and clickData:
-            return True
-        elif 'close-modal' in prop_id and n_clicks_close:
-            return False
-    return is_open
+    
+    logging.info(f"toggle_modal called with clickData: {clickData}, is_open: {is_open}")
+    
+    if not ctx.triggered:
+        logging.info("No trigger, returning existing state")
+        return is_open, dash.no_update
+    
+    trigger_id = ctx.triggered[0]['prop_id'].split('.')[0]
+    logging.info(f"Trigger ID: {trigger_id}")
+    
+    # Handle test button click
+    if trigger_id == 'test-modal-button' and test_clicks:
+        logging.info("Test button clicked, creating mock click data")
+        mock_click_data = {
+            'points': [{
+                'x': 'תקשורת וחשיבה דיגיטלית',
+                'y': 'בינה מלאכותית',
+                'z': 75
+            }]
+        }
+        return True, mock_click_data
+    
+    # Handle heatmap click
+    if trigger_id == 'heatmap' and clickData:
+        # Additional validation that we have valid click data
+        try:
+            point = clickData['points'][0]
+            if 'x' in point and 'y' in point:
+                logging.info(f"Valid click data found: x={point['x']}, y={point['y']}")
+                return True, clickData
+        except (KeyError, IndexError, TypeError) as e:
+            logging.warning(f"Invalid click data received: {e}")
+            return is_open, dash.no_update
+    
+    logging.info("No valid heatmap click, returning existing state")
+    return is_open, dash.no_update
 
+# Separate callback for closing the modal
+@dashApp.callback(
+    Output('modal', 'is_open', allow_duplicate=True),
+    Input('close-modal', 'n_clicks'),
+    prevent_initial_call=True
+)
+def close_modal(close_clicks):
+    """Handle closing the modal"""
+    if close_clicks:
+        logging.info("Close button clicked, closing modal")
+        return False
+    return dash.no_update
+
+
+
+# Simplified modal content update
 @dashApp.callback(
     [Output('modal', 'children'),
      Output('modal', 'style')],
-    [Input('heatmap', 'clickData'),
-     Input('modal', 'is_open')],
-    prevent_initial_call=False
+    [Input('modal-click-data', 'data')],
+    [State('modal', 'is_open')],
+    prevent_initial_call=True
 )
-def update_modal_content(clickData, is_open):
-    """Update modal content when heatmap is clicked or modal opens"""
-    print(f"DEBUG: update_modal_content called with clickData={clickData}, is_open={is_open}")
-    
-    ctx = dash.callback_context
+def update_modal_content(stored_click_data, is_open):
+    """Update modal content based on stored click data"""
     modal_style = {'direction': 'rtl'}
     
-    # Add debugging for context
-    if ctx.triggered:
-        print(f"DEBUG: Triggered by: {ctx.triggered}")
-    
-    # Check if this was triggered by a heatmap click
-    heatmap_clicked = False
-    if ctx.triggered:
-        for trigger in ctx.triggered:
-            if trigger['prop_id'] == 'heatmap.clickData' and clickData:
-                heatmap_clicked = True
-                break
-    
-    # If no click data and modal is not open, return empty content
-    if not clickData and not is_open:
-        print(f"DEBUG: Returning empty content. No clickData and modal not open.")
+    if not stored_click_data or not is_open:
         return [], modal_style
     
-    # If modal is open OR we have a fresh heatmap click, generate content
-    if is_open or heatmap_clicked:
-        print("DEBUG: About to call update_modal_content_helper")
-        try:
-            # Generate content using helper function
-            modal_content = update_modal_content_helper(clickData)
-            print(f"DEBUG: Helper returned content length: {len(modal_content)}")
-            return modal_content, modal_style
-        except Exception as e:
-            print(f"DEBUG: Exception in update_modal_content: {e}")
-            import traceback
-            traceback.print_exc()
-            return [], modal_style
-    
-    print(f"DEBUG: Returning empty content. is_open={is_open}, heatmap_clicked={heatmap_clicked}")
-    return [], modal_style
+    try:
+        modal_content = update_modal_content_helper(stored_click_data)
+        return modal_content, modal_style
+    except Exception as e:
+        logging.error(f"Error generating modal content: {e}")
+        # Return error modal content
+        return [
+            dbc.ModalHeader(
+                dbc.ModalTitle("שגיאה", style={"direction": "rtl"}),
+                close_button=True,
+                className="custom-modal-header border-0 pb-0"
+            ),
+            dbc.ModalBody([
+                html.Div("אירעה שגיאה בטעינת הנתונים. אנא נסה שוב.",
+                         style={"direction": "rtl", "textAlign": "center", "padding": "50px"})
+            ], style={'backgroundColor': '#f8f9fa', 'direction': 'rtl'}),
+            dbc.ModalFooter([
+                dbc.Button("סגור", id='close-modal', color="outline-secondary", size="lg")
+            ], className="border-0 pt-0", style={"direction": "rtl"})
+        ], modal_style
 
 def update_modal_content_helper(clickData):
     """Helper function to generate modal content from click data"""
-    print("DEBUG: Helper function called")
     try:
         if not clickData:
-            print("DEBUG: No clickData provided")
             return []
         
-        print(f"DEBUG: clickData structure: {clickData}")
         point = clickData['points'][0]
-        print(f"DEBUG: point data: {point}")
-        print(f"DEBUG: Raw x value: '{point['x']}'")
-        print(f"DEBUG: Raw y value: '{point['y']}'")
-        print("!!!", figure_map.keys())
-        
         col_key = clean_html_string(point['x'])
         row_key = original_row_key(point['y'])
-        
-        print(f"DEBUG: Processed col_key: '{col_key}'")
-        print(f"DEBUG: Processed row_key: '{row_key}'")
-        print("DEBUG: Available figure_map keys:", list(figure_map.keys())[:10] if figure_map else "No keys")
-        if col_key in figure_map:
-            print(f"DEBUG: Available row keys for '{col_key}':", list(figure_map[col_key].keys())[:10])
-        else:
-            print(f"DEBUG: '{col_key}' not found in figure_map keys")
-            
-        # Also check if row_key is available as a top-level key
-        if row_key in figure_map:
-            print(f"DEBUG: Available col keys for '{row_key}':", list(figure_map[row_key].keys())[:10])
         
         # Try both mappings since the structure might be reversed
         figure_data = figure_map.get(col_key, {}).get(row_key)
